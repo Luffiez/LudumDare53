@@ -247,6 +247,7 @@ MonoBehaviour:
   - {fileID: 2800000, guid: f7abe90d421c0684dbba51d76257e113, type: 3}
   - {fileID: 2800000, guid: 73cffa964b1f2784c88bc0bfa02d594e, type: 3}
   - {fileID: 2800000, guid: cd08e03bb77cd2c449c10ac9cf6d208c, type: 3}
+  - {fileID: 2800000, guid: 9086013fa04fc06479f93ae5c158ad4b, type: 3}
   hair: []
   eyebrows: []
   eyes: []
