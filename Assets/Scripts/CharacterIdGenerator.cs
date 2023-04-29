@@ -5,7 +5,7 @@ using UnityEngine;
 
 using UnityRandom = UnityEngine.Random; 
 
-public class IdGenerator : MonoBehaviour
+public class CharacterIdGenerator : MonoBehaviour
 {
 
     DateTime CurrentDate = new DateTime(1, 1, 1);
@@ -25,15 +25,15 @@ public class IdGenerator : MonoBehaviour
 
     }
 
-    public void GenerateId(IdData idData)
+    public void GenerateId(Character character)
     {
         DateTime BirthDay = CurrentDate.AddYears(-UnityRandom.Range(15, 84)).AddMonths(-UnityRandom.Range(1, 13)).AddDays(UnityRandom.Range(1, 32));
 
-        idData.BirthDay = BirthDay.Day;
-        idData.BirthMonth = BirthDay.Month;
-        idData.BirthYear = BirthDay.Year;
-        idData.BirthDay = BirthDay.Day;
-        idData.lastSixNumbers = UnityRandom.Range(111111, 999999);
+        character.BirthDay = BirthDay.Day;
+        character.BirthMonth = BirthDay.Month;
+        character.BirthYear = BirthDay.Year;
+        character.BirthDay = BirthDay.Day;
+        character.lastSixNumbers = UnityRandom.Range(111111, 999999);
     }
 
     // Update is called once per frame

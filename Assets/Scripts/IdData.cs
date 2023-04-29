@@ -5,7 +5,7 @@ using UnityEngine;
 public class IdData : MonoBehaviour
 {
     public bool FakeIdentification { get; set; }
-    public string PersonId { get; set; }
+    public string PersonId { get { return $"{BirthYear}{BirthMonth}{BirthDay}-{lastSixNumbers}"; } }
     public string SurName { get; set; }
     public string GivenName { get; set; }
     public int BirthDay { get; set; }
