@@ -15,7 +15,7 @@ public static class Queue
     public static void AddPair(QueuePair _pair)
     {
         pair.Add(_pair);
-        OnPairAdded(_pair);
+        OnPairAdded?.Invoke(_pair);
     }
 
     public static void Next(bool approved)
@@ -58,6 +58,9 @@ public class Character
     public string PackageId { get; set; }
 
     public int lastSixNumbers { get; set; }
+    //Parcel ID
+    //Character ID
+    //Visuals
 }
 
 public class Package
@@ -66,4 +69,5 @@ public class Package
     public string PersonId { get; set; }
     public string PackageId { get; set; }
     //Parcel ID
+    //Character ID
 }
