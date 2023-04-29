@@ -34,8 +34,8 @@ public class PackageHandler : MonoBehaviour
         {
             PackageInfromationData data = new PackageInfromationData();
             data.PackageId = generator.GeneratePackageId();
-            IdGenerator.GenerateId(tempCharacter);
-            data.PersonId = tempCharacter.PersonId;
+            IdGenerator.GenerateId(tempCharacter,false);
+            data.PersonId = tempCharacter.PersonIdString;
             int randomStatus = Random.Range(0, 3);
             data.Status = randomStatus == 0 ? randomStatus == 1 ? PackageStatus.Delivered : PackageStatus.NotRetreived : PackageStatus.ReadyToPickUp;
             PackageInfo.Add(data);

@@ -42,7 +42,8 @@ public class QueuePair
 public class Character
 {
     public bool FakeIdentification { get; set; }
-    public string PersonId { get { return $"{BirthYear}{BirthMonth}{BirthDay}-{lastSixNumbers}"; } }
+    public string PersonIdString { get { return $"{BirthYear}{BirthMonth}{BirthDay}-{lastSixNumbers}"; } }
+    public int PersonId { get; set; }
     public string SurName { get; set; }
     public string GivenName { get; set; }
     public int BirthDay { get; set; }
