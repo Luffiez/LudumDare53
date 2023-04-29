@@ -1,51 +1,58 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class PackageHandler : MonoBehaviour
 {
+    [SerializeField] int fakePackageCount = 10;
+
     List<PackageInfromationData> packageInfo = new List<PackageInfromationData>();
-    [SerializeField]
-    PackageIdGenerator generator;
-    [SerializeField]
-    CharacterIdGenerator IdGenerator;
     Character tempCharacter = new Character();
-    [SerializeField]
-    int dataAmount;
+    CharacterIdGenerator characterIdGenerator;
+    
     public List<PackageInfromationData> PackageInfo { get { return packageInfo; } }
 
     private void Start()
     {
-        Queue.OnNext += GeneratePackages;
+        Queue.OnNext += Queue_OnNext;
+        characterIdGenerator = transform.parent.GetComponentInChildren<CharacterIdGenerator>();
     }
 
-    public void GeneratePackages(QueuePair oldPair, QueuePair newPair, bool approved)
+    private void Queue_OnNext(QueuePair oldPair, QueuePair newPair, bool approved)
     {
         PackageInfo.Clear();
         GenerateFakePackageIds();
         AddPackageData(newPair);
     }
 
-    public void GenerateFakePackageIds()
+    private void GenerateFakePackageIds()
     {
         PackageInfo.Clear();
-        for (int i = 0; i < dataAmount; i++)
+        for (int i = 0; i < fakePackageCount; i++)
         {
             PackageInfromationData data = new PackageInfromationData();
-            data.PackageId = generator.GeneratePackageId();
-            IdGenerator.GenerateId(tempCharacter,false);
-            data.PersonId = tempCharacter.PersonIdString;
+
+            characterIdGenerator.GenerateId(tempCharacter, true);
+
+            Package fakePackage = new Package()
+            {
+                fake = true,
+                PackageId = PackageIdGenerator.GeneratePackageId(),
+                PersonId = tempCharacter?.PackageId,
+                sprite = null,
+            };
+
+            data.Package = fakePackage; 
             int randomStatus = Random.Range(0, 3);
             data.Status = randomStatus == 0 ? randomStatus == 1 ? PackageStatus.Delivered : PackageStatus.NotRetreived : PackageStatus.ReadyToPickUp;
             PackageInfo.Add(data);
         }
     }
 
-    public void AddPackageData(QueuePair pair)
+    private void AddPackageData(QueuePair pair)
     {
         PackageInfromationData informationData = new PackageInfromationData();
-        informationData.PackageId = pair.package.PackageId;
-        informationData.PersonId = pair.package.PersonId;
+        informationData.Package = pair.package;
+
         if (pair.package.fake)
         {
             int random = Random.Range(0, 2);
@@ -66,8 +73,7 @@ public class PackageHandler : MonoBehaviour
     public class PackageInfromationData
     {
         public PackageStatus Status { get; set; }
-        public string PackageId  { get; set; }
-        public string PersonId { get; set; }
+        public Package Package { get; set; }
     }
 
 }

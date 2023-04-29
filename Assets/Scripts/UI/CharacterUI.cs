@@ -78,20 +78,20 @@ public class CharacterUI : MonoBehaviour
 
     void GenerateRandomNew()
     {
-        head.sprite = spriteManager.GetRandomSprite(SpriteParts.head);
-        hair.sprite = spriteManager.GetRandomSprite(SpriteParts.hair);
-        ears.sprite = spriteManager.GetRandomSprite(SpriteParts.ears);
-        eyebrows.sprite = spriteManager.GetRandomSprite(SpriteParts.eyebrows);
-        eyes.sprite = spriteManager.GetRandomSprite(SpriteParts.eyes);
-        nose.sprite = spriteManager.GetRandomSprite(SpriteParts.nose);
-        mouth.sprite = spriteManager.GetRandomSprite(SpriteParts.mouth);
-        facialHair.sprite = spriteManager.GetRandomSprite(SpriteParts.facialhair);
-        body.sprite = spriteManager.GetRandomSprite(SpriteParts.body);
+        head.sprite = spriteManager.GetRandomSpritePart(SpriteParts.head);
+        hair.sprite = spriteManager.GetRandomSpritePart(SpriteParts.hair);
+        ears.sprite = spriteManager.GetRandomSpritePart(SpriteParts.ears);
+        eyebrows.sprite = spriteManager.GetRandomSpritePart(SpriteParts.eyebrows);
+        eyes.sprite = spriteManager.GetRandomSpritePart(SpriteParts.eyes);
+        nose.sprite = spriteManager.GetRandomSpritePart(SpriteParts.nose);
+        mouth.sprite = spriteManager.GetRandomSpritePart(SpriteParts.mouth);
+        facialHair.sprite = spriteManager.GetRandomSpritePart(SpriteParts.facialhair);
+        body.sprite = spriteManager.GetRandomSpritePart(SpriteParts.body);
 
         if (Random.Range(0, 100) > 80)    // 20% chans att få ärr
         {
             scars.enabled = true;
-            scars.sprite = spriteManager.GetRandomSprite(SpriteParts.scars);
+            scars.sprite = spriteManager.GetRandomSpritePart(SpriteParts.scars);
         }
         else
             scars.enabled = false;

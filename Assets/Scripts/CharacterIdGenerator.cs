@@ -1,23 +1,19 @@
-using System.Collections;
-using System.Collections.Generic;
 using System;
 using UnityEngine;
 
-using UnityRandom = UnityEngine.Random; 
+using UnityRandom = UnityEngine.Random;
 
 public class CharacterIdGenerator : MonoBehaviour
 {
-
     DateTime CurrentDate = new DateTime(1, 1, 1);
 
-    // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         CurrentDate = CurrentDate.AddYears(UnityRandom.Range(2011, 2019));
         CurrentDate = CurrentDate.AddMonths(UnityRandom.Range(1, 12));
         CurrentDate = CurrentDate.AddDays(UnityRandom.Range(1, 31));
-        Debug.Log(CurrentDate);
-        IdData idData = gameObject.AddComponent<IdData>();
+        
+        //IdData idData = gameObject.AddComponent<IdData>();
     }
 
     public void GenerateId(Character character, bool fake)
