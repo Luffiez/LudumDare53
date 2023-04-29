@@ -13,7 +13,8 @@ public class CharacterUI : MonoBehaviour
 
     [Header("Squish Settings")]
     [SerializeField] float squishSpeed = 2f;
-    [SerializeField] float squishStrength = 1f;
+    [SerializeField] float squishStrengthX = 1f;
+    [SerializeField] float squishStrengthY = 1f;
 
     [Header("Sprite Images")]
     [SerializeField] Image head;
@@ -50,9 +51,6 @@ public class CharacterUI : MonoBehaviour
 
     private void Update()
     {
-        //if (Input.GetKeyDown(KeyCode.Space))
-        //    GenerateRandomNew();
-
         if (targetPoint != null && Vector2.Distance(transform.position, targetPoint.position) > 0.1f)
         {
             transform.localScale = Vector3.one;
@@ -68,8 +66,8 @@ public class CharacterUI : MonoBehaviour
         else
         {
             squishCycle += Time.deltaTime * squishSpeed;
-            float sin = Mathf.Sin(squishCycle) * squishStrength;
-            transform.localScale = new Vector3(1+ sin, 1- sin, 1); // TODO
+            float sin = Mathf.Sin(squishCycle);
+            transform.localScale = new Vector3(1 + sin * squishStrengthX, 1 - sin * squishStrengthY, 1);
             transform.rotation = Quaternion.Euler(0, 0, 0);
         }
     }

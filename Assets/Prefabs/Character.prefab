@@ -138,8 +138,9 @@ MonoBehaviour:
   moveSpeed: 350
   wobbleSpeed: 8
   wobbleStrength: 1.5
-  squishSpeed: 5
-  squishStrength: 0.02
+  squishSpeed: 4
+  squishStrengthX: 0.015
+  squishStrengthY: 0.015
   head: {fileID: 7155492083394547221}
   hair: {fileID: 7155492082690717963}
   ears: {fileID: 7155492082658925736}
