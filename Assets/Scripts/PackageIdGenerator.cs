@@ -10,23 +10,17 @@ public class PackageIdGenerator : MonoBehaviour
     const string characterList = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890!#%?";
     Dictionary<string,int> DuplicateChecker =  new Dictionary<string, int>();
     // Start is called before the first frame update
-    void Start()
-    {
-        for (int i = 0; i < 100; i++)
-        {
-            GeneratePackageId();
-        }
-    }
 
 
-    public void GeneratePackageId()
+
+    public string GeneratePackageId()
     {
         string newPackageId = "";
         for (int i = 0; i < 6; i++)
         {
             newPackageId = newPackageId + characterList[Random.Range(0, characterList.Length)];
         }
-        Debug.Log(newPackageId);
+        return newPackageId;
     }
     
 }
