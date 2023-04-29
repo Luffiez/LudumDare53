@@ -58,9 +58,6 @@ public class Character
     public string PackageId { get; set; }
 
     public int lastSixNumbers { get; set; }
-    //Parcel ID
-    //Character ID
-    //Visuals
 }
 
 public class Package
@@ -68,6 +65,4 @@ public class Package
     public bool fake { get; set; }
     public string PersonId { get; set; }
     public string PackageId { get; set; }
-    //Parcel ID
-    //Character ID
 }

@@ -13,16 +13,11 @@ public class CharacterIdGenerator : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
-       
         CurrentDate = CurrentDate.AddYears(UnityRandom.Range(2011, 2019));
         CurrentDate = CurrentDate.AddMonths(UnityRandom.Range(1, 12));
         CurrentDate = CurrentDate.AddDays(UnityRandom.Range(1, 31));
         Debug.Log(CurrentDate);
         IdData idData = gameObject.AddComponent<IdData>();
-
-      
-
     }
 
     public void GenerateId(Character character, bool fake)
@@ -74,11 +69,4 @@ public class CharacterIdGenerator : MonoBehaviour
         }
         character.PersonId = birthDay.Day + birthDay.Month * 100 + birthDay.Year * 10000;
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
 }

@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class PackageHandler : MonoBehaviour
 {
-    // Start is called before the first frame update
     List<PackageInfromationData> packageInfo = new List<PackageInfromationData>();
     [SerializeField]
     PackageIdGenerator generator;
@@ -24,7 +23,7 @@ public class PackageHandler : MonoBehaviour
     {
         PackageInfo.Clear();
         GenerateFakePackageIds();
-        AddPackageData(oldPair);
+        AddPackageData(newPair);
     }
 
     public void GenerateFakePackageIds()
