@@ -37,6 +37,8 @@ public class CharacterUI : MonoBehaviour
     float wobbleCycle = 0;
     float squishCycle;
 
+    Vector3 scale;
+
     private void Start()
     {
         spriteManager = SpriteManager.instance;
@@ -47,13 +49,15 @@ public class CharacterUI : MonoBehaviour
 
         wobbleCycle = Random.Range(0, 100);
         wobbleSpeed *= Random.Range(0.9f, 1.1f);
+
+        scale = transform.localScale;
     }
 
     private void Update()
     {
         if (targetPoint != null && Vector2.Distance(transform.position, targetPoint.position) > 0.1f)
         {
-            transform.localScale = Vector3.one;
+            transform.localScale = scale;
             wobbleCycle += Time.deltaTime * wobbleSpeed;
             transform.rotation = Quaternion.Euler(0, 0, Mathf.Sin(wobbleCycle) * wobbleStrength);
 
@@ -67,7 +71,7 @@ public class CharacterUI : MonoBehaviour
         {
             squishCycle += Time.deltaTime * squishSpeed;
             float sin = Mathf.Sin(squishCycle);
-            transform.localScale = new Vector3(1 + sin * squishStrengthX, 1 - sin * squishStrengthY, 1);
+            transform.localScale = new Vector3(scale.x + sin * squishStrengthX, scale.y - sin * squishStrengthY, 1);
             transform.rotation = Quaternion.Euler(0, 0, 0);
         }
     }
