@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -30,17 +28,14 @@ public class CharacterUI : MonoBehaviour
 
     [HideInInspector] public Transform targetPoint;
     [HideInInspector] public bool destroyOnReachedTarget;
-    Character character;
-
+    [HideInInspector] public Character Character;
+    
     SpriteManager spriteManager;
 
     float wobbleCycle = 0;
     float squishCycle;
 
     Vector3 scale;
-
-    public delegate void ReachedTarget();
-    public event ReachedTarget OnReachedTarget;
 
     bool reachedTarget = false;
     private bool IsAtTarget() => targetPoint != null && Vector2.Distance(transform.position, targetPoint.position) < 0.1f;
@@ -74,7 +69,6 @@ public class CharacterUI : MonoBehaviour
         transform.localScale = scale;
         wobbleCycle += Time.deltaTime * wobbleSpeed;
         transform.rotation = Quaternion.Euler(0, 0, Mathf.Sin(wobbleCycle) * wobbleStrength);
-
         transform.position = Vector2.MoveTowards(transform.position, targetPoint.position, Time.deltaTime * moveSpeed);
     }
 
@@ -86,7 +80,7 @@ public class CharacterUI : MonoBehaviour
         if (!reachedTarget)
         {
             reachedTarget = true;
-            OnReachedTarget?.Invoke();
+            Character.ReachedTarget();
         }
 
         squishCycle += Time.deltaTime * squishSpeed;
@@ -98,16 +92,25 @@ public class CharacterUI : MonoBehaviour
     private void GenerateRandomNew()
     {
         head.sprite = spriteManager.GetRandomSpritePart(SpriteParts.head);
+
+        // if male 20% 0-0-
         hair.sprite = spriteManager.GetRandomSpritePart(SpriteParts.hair);
         ears.sprite = spriteManager.GetRandomSpritePart(SpriteParts.ears);
         eyebrows.sprite = spriteManager.GetRandomSpritePart(SpriteParts.eyebrows);
         eyes.sprite = spriteManager.GetRandomSpritePart(SpriteParts.eyes);
         nose.sprite = spriteManager.GetRandomSpritePart(SpriteParts.nose);
         mouth.sprite = spriteManager.GetRandomSpritePart(SpriteParts.mouth);
-        facialHair.sprite = spriteManager.GetRandomSpritePart(SpriteParts.facialhair);
         body.sprite = spriteManager.GetRandomSpritePart(SpriteParts.body);
 
-        if (Random.Range(0, 100) > 80)    // 20% chans att få ärr
+        if (Character.Sex == Sex.Male && Random.Range(0, 100) > 60) // 60% chance for males to have facial hair
+        {
+            facialHair.enabled = true;
+            facialHair.sprite = spriteManager.GetRandomSpritePart(SpriteParts.facialhair);
+        }
+        else
+            facialHair.enabled = false;
+
+        if (Random.Range(0, 100) > 80)    // 20% chance for scars
         {
             scars.enabled = true;
             scars.sprite = spriteManager.GetRandomSpritePart(SpriteParts.scars);
