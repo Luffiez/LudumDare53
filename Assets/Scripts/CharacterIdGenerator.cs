@@ -19,7 +19,6 @@ public static class CharacterIdGenerator
 
         if (fake)
             Scramble(birthDay);
-        character.PersonId = birthDay.Day + birthDay.Month * 100 + birthDay.Year * 10000;
     }
 
     static Sex GetSex(Character character)
