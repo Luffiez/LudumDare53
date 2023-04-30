@@ -12,6 +12,5 @@ public class Package
 public enum PackageStatus 
 { 
     Delivered, 
-    NotRetreived, 
     ReadyToPickUp
 }

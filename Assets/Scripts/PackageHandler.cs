@@ -3,8 +3,10 @@ using UnityEngine;
 
 public class PackageHandler : MonoBehaviour
 {
-    [SerializeField] int fakePackageCount = 10;
-
+    [SerializeField] int PackageCount = 10;
+    [SerializeField] GameObject packageUiPrefab;
+    [SerializeField] GameObject packageUIContent;
+    [SerializeField] GameObject packageView;
     List<Package> packageInfo = new List<Package>();
     Character tempCharacter = new Character();
     
@@ -12,20 +14,40 @@ public class PackageHandler : MonoBehaviour
 
     private void Start()
     {
+        Game.Instance.OnStarted += OnGameStarted;
         Queue.OnNext += Queue_OnNext;
+    }
+
+    private void OnGameStarted()
+    {
+        Queue_OnNext(null, new QueuePair(Queue.GetCurrentCharacter(), Queue.GetCurrentPackage()), true);
     }
 
     private void Queue_OnNext(QueuePair oldPair, QueuePair newPair, bool approved)
     {
-        PackageInfo.Clear();
+        ClearPackageUi();
         GenerateFakePackageIds();
         AddPackageData(newPair);
+        GameObject startObject = Instantiate(packageUiPrefab, packageUIContent.transform);
+        startObject.GetComponent<PackageInformationUi>().DisableButton();
+        for (int i = 0; i < PackageInfo.Count; i++)
+        {
+            GameObject uiObject = Instantiate(packageUiPrefab, packageUIContent.transform);
+            PackageInformationUi packageInformationUi = uiObject.GetComponent<PackageInformationUi>();
+            packageInformationUi.SetInformation(PackageInfo[i].PersonId, PackageInfo[i].PackageId,PackageInfo[i].Status.ToString());
+            if (PackageInfo[i].Status == PackageStatus.Delivered)
+            {
+                packageInformationUi.DisableButton();
+            }
+        }
+        PackageInfo.Clear();
     }
 
     private void GenerateFakePackageIds()
     {
+
         PackageInfo.Clear();
-        for (int i = 0; i < fakePackageCount; i++)
+        for (int i = 0; i < PackageCount; i++)
         {
             CharacterIdGenerator.GenerateId(tempCharacter, true);
 
@@ -33,12 +55,11 @@ public class PackageHandler : MonoBehaviour
             {
                 fake = true,
                 PackageId = PackageIdGenerator.GeneratePackageId(),
-                PersonId = tempCharacter?.PackageId,
+                PersonId = tempCharacter?.PersonIdString,
                 sprite = null,
             };
-
-            int randomStatus = Random.Range(0, 3);
-            fakePackage.Status = randomStatus == 0 ? randomStatus == 1 ? PackageStatus.Delivered : PackageStatus.NotRetreived : PackageStatus.ReadyToPickUp;
+            int randomStatus = Random.Range(0, 2);
+            fakePackage.Status = randomStatus == 0 ?  PackageStatus.Delivered : PackageStatus.ReadyToPickUp;
             PackageInfo.Add(fakePackage);
         }
     }
@@ -47,8 +68,7 @@ public class PackageHandler : MonoBehaviour
     {
         if (pair.package.fake)
         {
-            int random = Random.Range(0, 2);
-            pair.package.Status = random == 1 ? PackageStatus.Delivered : PackageStatus.NotRetreived;
+            pair.package.Status =  PackageStatus.Delivered;
         }
         else
         {
@@ -57,5 +77,23 @@ public class PackageHandler : MonoBehaviour
         
         int randomIndex = Random.Range(0, packageInfo.Count);
         packageInfo.Insert(randomIndex, pair.package);
+    }
+
+    public void EnablePackageView()
+    {
+        packageView.SetActive(true);
+    }
+
+    public void DisablePackageView()
+    {
+        packageView.SetActive(false);
+    }
+
+    public void ClearPackageUi()
+    {
+        for(int i = packageUIContent.transform.childCount-1; i >= 0; i--)
+        {
+            Destroy(packageUIContent.transform.GetChild(i).gameObject);
+        }
     }
 }
