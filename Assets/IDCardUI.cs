@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 
 public class IDCardUI : MonoBehaviour
@@ -7,16 +8,39 @@ public class IDCardUI : MonoBehaviour
     [SerializeField] Transform idImage;
     [SerializeField] Transform startPos;
     [SerializeField] Transform endPos;
+    [SerializeField] TMP_Text cardPreviewText;
+    [SerializeField] CharacterSprites IdPhoto;
 
     Transform target;
     bool isReturn;
-
     float speed;
 
     private void Start()
     {
         Queue.OnNext += Queue_OnNext;
         Queue.OnReachedTarget += Queue_OnReachedTarget;
+    }
+
+    public void PreviewCard()
+    {
+        var character = Queue.GetCurrentCharacter();
+
+        // TODO: Generate false sprites if fakeId? Generate difference in hair/facial, clothes sprites?
+        IdPhoto.GenerateSprites(character);
+
+        cardPreviewText.text = "<b>Name</b>\n";
+        cardPreviewText.text += character.GivenName + " " + character.SurName;
+        cardPreviewText.text += "\n\n<b>Date of Birth</b>\n";
+        cardPreviewText.text += character.PersonIdString;
+        cardPreviewText.text += "\n\n<b>Sex</b>\n";
+        cardPreviewText.text += character.Sex.ToString();
+
+        cardPreviewText.transform.parent.gameObject.SetActive(true);
+    }
+
+    public void StopPreviewingCard()
+    {
+        cardPreviewText.transform.parent.gameObject.SetActive(false);
     }
 
     private void Update()
