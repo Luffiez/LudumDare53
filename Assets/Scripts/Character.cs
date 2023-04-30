@@ -13,6 +13,8 @@
     public int lastSixNumbers { get; set; }
     public string PackageId { get; set; }
     public Sex Sex { get; set; }
+
+    public CharacterUI UI { get; set; }
 }
 
 public enum Sex 

@@ -17,7 +17,6 @@ public class QueueUI : MonoBehaviour
 
     private void Queue_OnNext(QueuePair oldPair, QueuePair newPair, bool approved)
     {
-        // TODO?
         if (characterUIs.Count > 0)
         {
             characterUIs[0].targetPoint = exitPoint;
@@ -38,8 +37,12 @@ public class QueueUI : MonoBehaviour
 
         Transform point = queuePoints[characterUIs.Count];
         GameObject character = Instantiate(characterUIPrefab, entrancePoint.position, Quaternion.identity, transform);
+        character.transform.SetAsFirstSibling();
         var characterUI = character.GetComponent<CharacterUI>();
         characterUI.targetPoint = point;
+        characterUI.Character = newPair.character;
         characterUIs.Add(characterUI);
+
+        newPair.character.UI = characterUI;
     }
 }

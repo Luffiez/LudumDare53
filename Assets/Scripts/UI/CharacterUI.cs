@@ -1,8 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
+[RequireComponent(typeof(CharacterSprites))]
 public class CharacterUI : MonoBehaviour
 {
     [SerializeField] float moveSpeed = 2f;
@@ -16,39 +14,24 @@ public class CharacterUI : MonoBehaviour
     [SerializeField] float squishStrengthX = 1f;
     [SerializeField] float squishStrengthY = 1f;
 
-    [Header("Sprite Images")]
-    [SerializeField] Image head;
-    [SerializeField] Image hair;
-    [SerializeField] Image ears;
-    [SerializeField] Image eyebrows;
-    [SerializeField] Image eyes;
-    [SerializeField] Image nose;
-    [SerializeField] Image mouth;
-    [SerializeField] Image scars;
-    [SerializeField] Image facialHair;
-    [SerializeField] Image body;
-
     [HideInInspector] public Transform targetPoint;
     [HideInInspector] public bool destroyOnReachedTarget;
-    Character character;
-
-    SpriteManager spriteManager;
+    [HideInInspector] public Character Character;
+    
+    CharacterSprites sprites;
 
     float wobbleCycle = 0;
     float squishCycle;
 
     Vector3 scale;
 
-    public delegate void ReachedTarget();
-    public event ReachedTarget OnReachedTarget;
-
     bool reachedTarget = false;
-    private bool IsAtTarget() => targetPoint != null && Vector2.Distance(transform.position, targetPoint.position) < 0.1f;
+    private bool IsAtTarget() => targetPoint != null && Vector2.Distance(transform.position, targetPoint.position) < 1f;
 
     private void Start()
     {
-        spriteManager = SpriteManager.instance;
-        GenerateRandomNew();
+        sprites = GetComponent<CharacterSprites>();
+        sprites.GenerateSprites(Character);
 
         squishCycle = Random.Range(0, 100);
         squishSpeed *= Random.Range(0.9f, 1.1f);
@@ -74,7 +57,6 @@ public class CharacterUI : MonoBehaviour
         transform.localScale = scale;
         wobbleCycle += Time.deltaTime * wobbleSpeed;
         transform.rotation = Quaternion.Euler(0, 0, Mathf.Sin(wobbleCycle) * wobbleStrength);
-
         transform.position = Vector2.MoveTowards(transform.position, targetPoint.position, Time.deltaTime * moveSpeed);
     }
 
@@ -86,33 +68,12 @@ public class CharacterUI : MonoBehaviour
         if (!reachedTarget)
         {
             reachedTarget = true;
-            OnReachedTarget?.Invoke();
+            Character.ReachedTarget();
         }
 
         squishCycle += Time.deltaTime * squishSpeed;
         float sin = Mathf.Sin(squishCycle);
         transform.localScale = new Vector3(scale.x + sin * squishStrengthX, scale.y - sin * squishStrengthY, 1);
         transform.rotation = Quaternion.Euler(0, 0, 0);
-    }
-
-    private void GenerateRandomNew()
-    {
-        head.sprite = spriteManager.GetRandomSpritePart(SpriteParts.head);
-        hair.sprite = spriteManager.GetRandomSpritePart(SpriteParts.hair);
-        ears.sprite = spriteManager.GetRandomSpritePart(SpriteParts.ears);
-        eyebrows.sprite = spriteManager.GetRandomSpritePart(SpriteParts.eyebrows);
-        eyes.sprite = spriteManager.GetRandomSpritePart(SpriteParts.eyes);
-        nose.sprite = spriteManager.GetRandomSpritePart(SpriteParts.nose);
-        mouth.sprite = spriteManager.GetRandomSpritePart(SpriteParts.mouth);
-        facialHair.sprite = spriteManager.GetRandomSpritePart(SpriteParts.facialhair);
-        body.sprite = spriteManager.GetRandomSpritePart(SpriteParts.body);
-
-        if (Random.Range(0, 100) > 80)    // 20% chans att få ärr
-        {
-            scars.enabled = true;
-            scars.sprite = spriteManager.GetRandomSpritePart(SpriteParts.scars);
-        }
-        else
-            scars.enabled = false;
     }
 }
