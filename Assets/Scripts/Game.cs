@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 
@@ -16,7 +17,8 @@ public class Game : MonoBehaviour
     public GameStarted OnStarted;
 
     SpriteManager spriteManager;
-    CharacterIdGenerator characterIdGenerator;
+    public DateTime CurrentDate = new DateTime(1, 1, 1);
+
 
     private void OnDestroy()
     {
@@ -32,11 +34,14 @@ public class Game : MonoBehaviour
             Destroy(this);
             return;
         }
+
+        CurrentDate = CurrentDate.AddYears(UnityEngine.Random.Range(2011, 2019));
+        CurrentDate = CurrentDate.AddMonths(UnityEngine.Random.Range(1, 12));
+        CurrentDate = CurrentDate.AddDays(UnityEngine.Random.Range(1, 31));
     }
 
     private void Start()
     {
-        characterIdGenerator = transform.parent.GetComponentInChildren<CharacterIdGenerator>();
         spriteManager = SpriteManager.instance;
         Queue.OnNext += Queue_OnNext;
         StartCoroutine(DelayedSpawn());
@@ -66,8 +71,8 @@ public class Game : MonoBehaviour
     {
         // Character
         var character = new Character();
-        bool fake = Random.Range(0f, 1f) < fakePercentage;
-        characterIdGenerator.GenerateId(character, fake);
+        bool fake = UnityEngine.Random.Range(0f, 1f) < fakePercentage;
+        CharacterIdGenerator.GenerateId(character, fake);
 
         // Package
         var package = new Package()

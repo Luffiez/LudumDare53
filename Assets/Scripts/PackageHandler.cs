@@ -5,16 +5,14 @@ public class PackageHandler : MonoBehaviour
 {
     [SerializeField] int fakePackageCount = 10;
 
-    List<PackageInfromationData> packageInfo = new List<PackageInfromationData>();
+    List<Package> packageInfo = new List<Package>();
     Character tempCharacter = new Character();
-    CharacterIdGenerator characterIdGenerator;
     
-    public List<PackageInfromationData> PackageInfo { get { return packageInfo; } }
+    public List<Package> PackageInfo { get { return packageInfo; } }
 
     private void Start()
     {
         Queue.OnNext += Queue_OnNext;
-        characterIdGenerator = transform.parent.GetComponentInChildren<CharacterIdGenerator>();
     }
 
     private void Queue_OnNext(QueuePair oldPair, QueuePair newPair, bool approved)
@@ -29,9 +27,7 @@ public class PackageHandler : MonoBehaviour
         PackageInfo.Clear();
         for (int i = 0; i < fakePackageCount; i++)
         {
-            PackageInfromationData data = new PackageInfromationData();
-
-            characterIdGenerator.GenerateId(tempCharacter, true);
+            CharacterIdGenerator.GenerateId(tempCharacter, true);
 
             Package fakePackage = new Package()
             {
@@ -41,39 +37,25 @@ public class PackageHandler : MonoBehaviour
                 sprite = null,
             };
 
-            data.Package = fakePackage; 
             int randomStatus = Random.Range(0, 3);
-            data.Status = randomStatus == 0 ? randomStatus == 1 ? PackageStatus.Delivered : PackageStatus.NotRetreived : PackageStatus.ReadyToPickUp;
-            PackageInfo.Add(data);
+            fakePackage.Status = randomStatus == 0 ? randomStatus == 1 ? PackageStatus.Delivered : PackageStatus.NotRetreived : PackageStatus.ReadyToPickUp;
+            PackageInfo.Add(fakePackage);
         }
     }
 
     private void AddPackageData(QueuePair pair)
     {
-        PackageInfromationData informationData = new PackageInfromationData();
-        informationData.Package = pair.package;
-
         if (pair.package.fake)
         {
             int random = Random.Range(0, 2);
-            informationData.Status = random == 1 ? PackageStatus.Delivered : PackageStatus.NotRetreived;
+            pair.package.Status = random == 1 ? PackageStatus.Delivered : PackageStatus.NotRetreived;
         }
         else
         {
-            informationData.Status = PackageStatus.ReadyToPickUp;
+            pair.package.Status = PackageStatus.ReadyToPickUp;
         }
         
         int randomIndex = Random.Range(0, packageInfo.Count);
-        packageInfo.Insert(randomIndex, informationData);
+        packageInfo.Insert(randomIndex, pair.package);
     }
-
-
-    public enum PackageStatus { Delivered, NotRetreived,ReadyToPickUp }
-
-    public class PackageInfromationData
-    {
-        public PackageStatus Status { get; set; }
-        public Package Package { get; set; }
-    }
-
 }
