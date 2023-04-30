@@ -43,7 +43,7 @@ public class CharacterUI : MonoBehaviour
     public event ReachedTarget OnReachedTarget;
 
     bool reachedTarget = false;
-    private bool IsAtTarget() => targetPoint != null && Vector2.Distance(transform.position, targetPoint.position) > 0.1f;
+    private bool IsAtTarget() => targetPoint != null && Vector2.Distance(transform.position, targetPoint.position) < 0.1f;
 
     private void Start()
     {

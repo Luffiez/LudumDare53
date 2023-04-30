@@ -19,7 +19,6 @@ public class Game : MonoBehaviour
     SpriteManager spriteManager;
     public DateTime CurrentDate = new DateTime(1, 1, 1);
 
-
     private void OnDestroy()
     {
         Queue.OnNext -= Queue_OnNext;
