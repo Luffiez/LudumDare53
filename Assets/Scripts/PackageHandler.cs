@@ -10,7 +10,17 @@ public class PackageHandler : MonoBehaviour
     List<Package> packageInfo = new List<Package>();
     Character tempCharacter = new Character();
     
+    public static PackageHandler Instance;
+
     public List<Package> PackageInfo { get { return packageInfo; } }
+
+    private void Awake()
+    {
+        if (Instance == null)
+            Instance = this;
+        else
+            Destroy(this);
+    }
 
     private void Start()
     {
@@ -34,7 +44,7 @@ public class PackageHandler : MonoBehaviour
         {
             GameObject uiObject = Instantiate(packageUiPrefab, packageUIContent.transform);
             PackageInformationUi packageInformationUi = uiObject.GetComponent<PackageInformationUi>();
-            packageInformationUi.SetInformation(PackageInfo[i].PersonId, PackageInfo[i].PackageId,PackageInfo[i].Status.ToString());
+            packageInformationUi.SetInformation(PackageInfo[i]);
             if (PackageInfo[i].Status == PackageStatus.Delivered)
             {
                 packageInformationUi.DisableButton();
@@ -56,7 +66,7 @@ public class PackageHandler : MonoBehaviour
                 fake = true,
                 PackageId = PackageIdGenerator.GeneratePackageId(),
                 PersonId = tempCharacter?.PersonIdString,
-                sprite = null,
+                sprite = SpriteManager.instance.GetRandomPackageSprite(),
             };
             int randomStatus = Random.Range(0, 2);
             fakePackage.Status = randomStatus == 0 ?  PackageStatus.Delivered : PackageStatus.ReadyToPickUp;
