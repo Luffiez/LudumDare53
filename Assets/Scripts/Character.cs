@@ -20,6 +20,9 @@
     public int lastSixNumbers { get; set; }
     public string PackageId { get; set; }
     public Sex Sex { get; set; }
+    public float StartPatience { get; set; }
+    public float Patience { get; set; }
+    public float PatiencePercentage => Patience / StartPatience;
 
     public CharacterUI UI { get; set; }
 }

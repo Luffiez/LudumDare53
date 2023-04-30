@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -25,8 +26,18 @@ public class PackageUI : MonoBehaviour
     {
         interactableUI = GetComponent<InteractableUI>();
         image.gameObject.SetActive(false);
-        //Queue.OnNext += Queue_OnNextPackage;
-        //Game.Instance.OnStarted += Game_OnStarted;
+        Queue.OnNext += Queue_OnNext;
+        Queue.OnPairRemoved += Queue_OnPairRemoved;
+    }
+
+    private void Queue_OnPairRemoved(QueuePair newPair)
+    {
+        image.gameObject.SetActive(false);
+    }
+
+    private void Queue_OnNext(QueuePair oldPair, QueuePair newPair, bool approved)
+    {
+        image.gameObject.SetActive(false);
     }
 
     private void Update()
@@ -45,6 +56,16 @@ public class PackageUI : MonoBehaviour
 
     public void GivePackage()
     {
+        if (!image.gameObject.activeSelf)
+            return;
+
+        if (currentPackage.PackageId != currentCharacter.PackageId)
+        {
+            TextBubble.Instance.Display("That's not my package!");
+            currentCharacter.Patience -= currentCharacter.StartPatience * 0.3f;
+            return;
+        }
+
         if(interactableUI)
             interactableUI.enabled = false;
         target = currentCharacter.UI.transform;
@@ -57,16 +78,6 @@ public class PackageUI : MonoBehaviour
         bool approved = !currentCharacter.FakeIdentification && currentCharacter.PackageId == currentPackage.PackageId;
         Queue.Next(approved);
     }
-
-    //private void Game_OnStarted()
-    //{
-    //    SetPackage(Queue.GetCurrentCharacter(), Queue.GetCurrentPackage());
-    //}
-
-    //private void Queue_OnNextPackage(QueuePair oldPair, QueuePair newPair, bool approved)
-    //{
-    //    SetPackage(newPair.character, newPair.package);
-    //}
 
     public void SetPackage(Character character, Package package)
     {

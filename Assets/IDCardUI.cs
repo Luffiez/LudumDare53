@@ -87,11 +87,14 @@ public class IDCardUI : MonoBehaviour
         }
 
         if (isReturn)
-        {
-            target = null;
-            idImage.transform.position = startPos.position;
-            idImage.gameObject.SetActive(false);
-        }
+            ResetCard();
+    }
+
+    void ResetCard()
+    {
+        target = null;
+        idImage.transform.position = startPos.position;
+        idImage.gameObject.SetActive(false);
     }
 
     private void Queue_OnNext(QueuePair oldPair, QueuePair newPair, bool approved)

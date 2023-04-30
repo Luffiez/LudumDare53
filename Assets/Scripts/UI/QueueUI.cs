@@ -3,16 +3,37 @@ using UnityEngine;
 
 public class QueueUI : MonoBehaviour
 {
+    public static QueueUI Instance;
+
     [SerializeField] GameObject characterUIPrefab;
     [SerializeField] Transform[] queuePoints;
     [SerializeField] Transform entrancePoint;
-    [SerializeField] Transform exitPoint;
+    public Transform exitPoint;
     List<CharacterUI> characterUIs = new List<CharacterUI>();
 
     private void Awake()
     {
+        if (Instance == null)
+            Instance = this;
+        else
+            Destroy(this);
+
         Queue.OnPairAdded += Queue_PairAdded;
         Queue.OnNext += Queue_OnNext;
+        Queue.OnPairRemoved += Queue_OnPairRemoved;
+    }
+
+    private void Queue_OnPairRemoved(QueuePair pair)
+    {
+        if (pair?.character?.UI == null)
+        {
+            throw new System.NullReferenceException("PAIR IS NULL!?");
+        }
+        
+        pair.character.UI.targetPoint = exitPoint;
+        pair.character.UI.destroyOnReachedTarget = true;
+        characterUIs.Remove(pair.character.UI);
+        UpdateQueuePoints();
     }
 
     private void Queue_OnNext(QueuePair oldPair, QueuePair newPair, bool approved)
@@ -23,10 +44,15 @@ public class QueueUI : MonoBehaviour
             characterUIs[0].destroyOnReachedTarget = true;
             characterUIs.RemoveAt(0);
 
-            for (int i = 0; i < characterUIs.Count; i++)
-            {
-                characterUIs[i].targetPoint = queuePoints[i];
-            }
+            UpdateQueuePoints();
+        }
+    }
+
+    void UpdateQueuePoints()
+    {
+        for (int i = 0; i < characterUIs.Count; i++)
+        {
+            characterUIs[i].targetPoint = queuePoints[i];
         }
     }
 

@@ -8,6 +8,14 @@ public class TextBubble : MonoBehaviour
     [SerializeField] float bubbleScaleDuration = 0.5f;
     [SerializeField] GameObject bubble;
     [SerializeField] TMP_Text bubbleText;
+    public static TextBubble Instance;
+    private void Awake()
+    {
+        if (Instance == null)
+            Instance = this;
+        else
+            Destroy(this);  
+    }
 
     private void Start()
     {
@@ -27,7 +35,7 @@ public class TextBubble : MonoBehaviour
     private void Queue_OnReachedTarget(Character character)
     {
         if (character == Queue.GetCurrentCharacter())
-            Display("My packade id is: " + character.PackageId);
+            Display("My package id is: " + character.PackageId);
     }
 
     public void Display(string text)

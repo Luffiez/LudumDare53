@@ -23,15 +23,26 @@ public class PackageHandler : MonoBehaviour
 
         Game.Instance.OnStarted += OnGameStarted;
         Queue.OnNext += Queue_OnNext;
+        Queue.OnPairRemoved += Queue_OnPairRemoved;
 
     }
-    
+
+    private void Queue_OnPairRemoved(QueuePair newPair)
+    {
+        UpdatePackageList(Queue.GetCurrentPair());
+    }
+
     private void OnGameStarted()
     {
         Queue_OnNext(null, new QueuePair(Queue.GetCurrentCharacter(), Queue.GetCurrentPackage()), true);
     }
 
     private void Queue_OnNext(QueuePair oldPair, QueuePair newPair, bool approved)
+    {
+        UpdatePackageList(newPair);
+    }
+
+    private void UpdatePackageList(QueuePair newPair)
     {
         ClearPackageUi();
         GenerateFakePackageIds();

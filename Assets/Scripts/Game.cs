@@ -1,15 +1,19 @@
 using System;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Game : MonoBehaviour
 {
     public static Game Instance;
 
+    [SerializeField] int lives = 5;
     [SerializeField] int queueStartSize = 3;
     [SerializeField] int queueMaxSize = 3;
     [SerializeField] float spawnDelay = 0.3f;
     [SerializeField] float fakePercentage = 0.3f;
+    [SerializeField] float minCharacterPatience = 60f;
+    [SerializeField] float maxCharacterPatience = 120f;
 
     [HideInInspector] public int score = 0;
 
@@ -43,9 +47,17 @@ public class Game : MonoBehaviour
     {
         spriteManager = SpriteManager.instance;
         Queue.OnNext += Queue_OnNext;
+        Queue.OnPairRemoved += Queue_OnPairRemoved;
+       
         StartCoroutine(DelayedSpawn());
 
         OnStarted?.Invoke();
+    }
+
+    private void Queue_OnPairRemoved(QueuePair newPair)
+    {
+        Queue.AddPair(GeneratePair());
+        ReduceHealth();
     }
 
     private void Update()
@@ -65,13 +77,15 @@ public class Game : MonoBehaviour
         }
     }
 
-    QueuePair GeneratePair()
+    public QueuePair GeneratePair()
     {
         // Character
         var character = new Character();
         bool fake = UnityEngine.Random.Range(0f, 1f) < fakePercentage;
         CharacterIdGenerator.GenerateId(character, fake);
 
+        character.StartPatience = UnityEngine.Random.Range(minCharacterPatience, maxCharacterPatience);
+        character.Patience = character.StartPatience;
         // Package
         var package = new Package()
         {
@@ -92,8 +106,16 @@ public class Game : MonoBehaviour
         if (approved)
             score++;
         else
-            score--;
+            ReduceHealth();
 
         Queue.AddPair(GeneratePair());
+    }
+
+    private void ReduceHealth()
+    {
+        lives--;
+        if (lives <= 0)
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+
     }
 }
