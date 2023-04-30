@@ -1,6 +1,4 @@
 using System.Collections.Generic;
-using System.Linq;
-using UnityEngine;
 
 public static class Queue
 {
@@ -25,7 +23,6 @@ public static class Queue
 
     public static void Next(bool approved)
     {
-        Debug.Log(pair.Count);
         if (pair.Count == 1)
         {
             pair.RemoveAt(0);
