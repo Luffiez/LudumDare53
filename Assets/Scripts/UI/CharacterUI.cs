@@ -39,6 +39,12 @@ public class CharacterUI : MonoBehaviour
 
     Vector3 scale;
 
+    public delegate void ReachedTarget();
+    public event ReachedTarget OnReachedTarget;
+
+    bool reachedTarget = false;
+    private bool IsAtTarget() => targetPoint != null && Vector2.Distance(transform.position, targetPoint.position) > 0.1f;
+
     private void Start()
     {
         spriteManager = SpriteManager.instance;
@@ -55,28 +61,41 @@ public class CharacterUI : MonoBehaviour
 
     private void Update()
     {
-        if (targetPoint != null && Vector2.Distance(transform.position, targetPoint.position) > 0.1f)
-        {
-            transform.localScale = scale;
-            wobbleCycle += Time.deltaTime * wobbleSpeed;
-            transform.rotation = Quaternion.Euler(0, 0, Mathf.Sin(wobbleCycle) * wobbleStrength);
-
-            transform.position = Vector2.MoveTowards(transform.position, targetPoint.position, Time.deltaTime * moveSpeed);
-        }
-        else if (destroyOnReachedTarget)
-        {
-            Destroy(gameObject);
-        }
+        if (!IsAtTarget())
+            MoveTowardsTarget();
         else
-        {
-            squishCycle += Time.deltaTime * squishSpeed;
-            float sin = Mathf.Sin(squishCycle);
-            transform.localScale = new Vector3(scale.x + sin * squishStrengthX, scale.y - sin * squishStrengthY, 1);
-            transform.rotation = Quaternion.Euler(0, 0, 0);
-        }
+            Idle();
     }
 
-    void GenerateRandomNew()
+    private void MoveTowardsTarget()
+    {
+        if (reachedTarget)
+            reachedTarget = false;
+        transform.localScale = scale;
+        wobbleCycle += Time.deltaTime * wobbleSpeed;
+        transform.rotation = Quaternion.Euler(0, 0, Mathf.Sin(wobbleCycle) * wobbleStrength);
+
+        transform.position = Vector2.MoveTowards(transform.position, targetPoint.position, Time.deltaTime * moveSpeed);
+    }
+
+    private void Idle()
+    {
+        if (destroyOnReachedTarget)
+            Destroy(gameObject);
+
+        if (!reachedTarget)
+        {
+            reachedTarget = true;
+            OnReachedTarget?.Invoke();
+        }
+
+        squishCycle += Time.deltaTime * squishSpeed;
+        float sin = Mathf.Sin(squishCycle);
+        transform.localScale = new Vector3(scale.x + sin * squishStrengthX, scale.y - sin * squishStrengthY, 1);
+        transform.rotation = Quaternion.Euler(0, 0, 0);
+    }
+
+    private void GenerateRandomNew()
     {
         head.sprite = spriteManager.GetRandomSpritePart(SpriteParts.head);
         hair.sprite = spriteManager.GetRandomSpritePart(SpriteParts.hair);

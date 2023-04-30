@@ -3,10 +3,10 @@ using System.Collections.Generic;
 public static class Queue
 {
     public delegate void NextPair(QueuePair oldPair, QueuePair newPair, bool approved);
-    public static NextPair OnNext;
+    public static event NextPair OnNext;
 
     public delegate void PairAdded(QueuePair newPair);
-    public static PairAdded OnPairAdded;
+    public static event PairAdded OnPairAdded;
 
     private static List<QueuePair> pair = new List<QueuePair>();
     public static Character? GetCurrentCharacter() => pair[0]?.character;

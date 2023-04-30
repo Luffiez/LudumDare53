@@ -15,9 +15,19 @@ public static class CharacterIdGenerator
         character.BirthYear = birthDay.Year;
         character.BirthDay = birthDay.Day;
         character.lastSixNumbers = UnityRandom.Range(111111, 999999);
+        character.Sex = GetSex(character);
+
         if (fake)
             Scramble(birthDay);
         character.PersonId = birthDay.Day + birthDay.Month * 100 + birthDay.Year * 10000;
+    }
+
+    static Sex GetSex(Character character)
+    {
+        // Get last digit
+        int lastDigit = character.lastSixNumbers % 10;
+        // If even => female, if odd => male (how we do it in sweden I believe)
+        return (lastDigit % 2) == 0 ? Sex.Female : Sex.Male;
     }
 
     private static void Scramble(DateTime birthDay)
