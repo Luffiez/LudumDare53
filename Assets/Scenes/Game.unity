@@ -207,6 +207,17 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1474276260 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5511846154131635464, guid: 3f9a4d4c657210d45aa7a0e3f15390f3, type: 3}
+  m_PrefabInstance: {fileID: 5511846154256826774}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fca4f0eb7cca5ca4abad32c646479c3a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &3300769134340605929
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -214,6 +225,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1610304275, guid: bc83acc35b442584e9966787d87afd1f, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1474276260}
+    - target: {fileID: 2058942423, guid: bc83acc35b442584e9966787d87afd1f, type: 3}
+      propertyPath: OnClickEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1474276260}
     - target: {fileID: 3300769135586627930, guid: bc83acc35b442584e9966787d87afd1f, type: 3}
       propertyPath: m_RootOrder
       value: 2
@@ -264,6 +283,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bc83acc35b442584e9966787d87afd1f, type: 3}
+--- !u!1 &3300769134340605930 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1818542012, guid: bc83acc35b442584e9966787d87afd1f, type: 3}
+  m_PrefabInstance: {fileID: 3300769134340605929}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &3300769134340605931 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 357898028, guid: bc83acc35b442584e9966787d87afd1f, type: 3}
+  m_PrefabInstance: {fileID: 3300769134340605929}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &5511846154256826774
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -271,6 +300,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 5511846154131635464, guid: 3f9a4d4c657210d45aa7a0e3f15390f3, type: 3}
+      propertyPath: packageView
+      value: 
+      objectReference: {fileID: 3300769134340605931}
+    - target: {fileID: 5511846154131635464, guid: 3f9a4d4c657210d45aa7a0e3f15390f3, type: 3}
+      propertyPath: packageUIContent
+      value: 
+      objectReference: {fileID: 3300769134340605930}
     - target: {fileID: 5511846154605838010, guid: 3f9a4d4c657210d45aa7a0e3f15390f3, type: 3}
       propertyPath: m_Name
       value: Managers

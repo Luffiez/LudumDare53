@@ -44,7 +44,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fca4f0eb7cca5ca4abad32c646479c3a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fakePackageCount: 10
+  PackageCount: 20
+  packageUiPrefab: {fileID: 6466716885970194, guid: 3ab824eb15ba28a4496636ccd0d6dccc, type: 3}
+  packageUIContent: {fileID: 0}
+  packageView: {fileID: 0}
 --- !u!1 &5511846154370744240
 GameObject:
   m_ObjectHideFlags: 0
