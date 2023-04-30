@@ -20,14 +20,12 @@ public class PackageHandler : MonoBehaviour
             Instance = this;
         else
             Destroy(this);
-    }
 
-    private void Start()
-    {
         Game.Instance.OnStarted += OnGameStarted;
         Queue.OnNext += Queue_OnNext;
-    }
 
+    }
+    
     private void OnGameStarted()
     {
         Queue_OnNext(null, new QueuePair(Queue.GetCurrentCharacter(), Queue.GetCurrentPackage()), true);

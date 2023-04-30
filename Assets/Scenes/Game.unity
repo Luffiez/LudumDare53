@@ -238,8 +238,48 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 594809252, guid: bc83acc35b442584e9966787d87afd1f, type: 3}
+      propertyPath: m_text
+      value: '<b>Name</b>
+
+        Bernard Miller
+
+
+        <b>Date of Birth</b>
+
+        15
+        / FEB / 2001
+
+
+        <b>Personal ID</b>
+
+        1977-04-2-234312
+
+
+        <b>Sex</b>
+
+        Female
+
+
+        <b>Expiration
+        Date</b>
+
+        Female'
+      objectReference: {fileID: 0}
+    - target: {fileID: 594809252, guid: bc83acc35b442584e9966787d87afd1f, type: 3}
+      propertyPath: m_fontSize
+      value: 32
+      objectReference: {fileID: 0}
+    - target: {fileID: 594809252, guid: bc83acc35b442584e9966787d87afd1f, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 32
+      objectReference: {fileID: 0}
+    - target: {fileID: 594809252, guid: bc83acc35b442584e9966787d87afd1f, type: 3}
       propertyPath: m_RaycastTarget
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 594809252, guid: bc83acc35b442584e9966787d87afd1f, type: 3}
+      propertyPath: m_HorizontalAlignment
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 871070753, guid: bc83acc35b442584e9966787d87afd1f, type: 3}
       propertyPath: m_RaycastTarget
@@ -264,6 +304,18 @@ PrefabInstance:
     - target: {fileID: 1252670837, guid: bc83acc35b442584e9966787d87afd1f, type: 3}
       propertyPath: m_RaycastTarget
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1312055253, guid: bc83acc35b442584e9966787d87afd1f, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1312055254, guid: bc83acc35b442584e9966787d87afd1f, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: -290
+      objectReference: {fileID: 0}
+    - target: {fileID: 1312055254, guid: bc83acc35b442584e9966787d87afd1f, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -85
       objectReference: {fileID: 0}
     - target: {fileID: 1610304275, guid: bc83acc35b442584e9966787d87afd1f, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
