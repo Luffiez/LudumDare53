@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using UnityEngine;
 
 public static class Queue
 {
@@ -24,13 +25,18 @@ public static class Queue
 
     public static void Next(bool approved)
     {
-        var oldPair = pair[0];
-        pair.RemoveAt(0);
-        if (pair.Count == 0)
+        Debug.Log(pair.Count);
+        if (pair.Count == 1)
+        {
+            pair.RemoveAt(0);
             return;
+        }
 
-        var newPair = pair[0];
+        var oldPair = pair[0];
+        var newPair = pair[1];
         OnNext?.Invoke(oldPair, newPair, approved);
+        pair.RemoveAt(0);
+
     }
 
     public static void ReachedTarget(this Character character)

@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
@@ -16,17 +14,26 @@ public class PackageInformationUi : MonoBehaviour
     GameObject Button;
     public string PackageId { get; set; }
 
+    Package package;
+
     // Start is called before the first frame update
-    public void SetInformation(string personId, string packageId, string status)
+    public void SetInformation(Package package)
     {
-        StatusText.text = status;
-        PersonIdText.text = personId;
-        PackageIdText.text = packageId;
-        PackageId = packageId;
+        this.package = package;
+        StatusText.text = package.Status.ToString();
+        PersonIdText.text = package.PersonId;
+        PackageIdText.text = package.PackageId;
+        PackageId = package.PackageId;
     }
 
     public void DisableButton()
     {
         Button.SetActive(false);
+    }
+
+    public void FetchPackage()
+    {
+        PackageUI.Instance.SetPackage(Queue.GetCurrentCharacter(), package);
+        PackageHandler.Instance.DisablePackageView();
     }
 }

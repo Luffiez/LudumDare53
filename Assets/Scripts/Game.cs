@@ -52,7 +52,6 @@ public class Game : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            Queue.AddPair(GeneratePair());
             Queue.Next(true);
         }
     }

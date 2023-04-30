@@ -3,6 +3,7 @@ using UnityEngine.UI;
 
 public class PackageUI : MonoBehaviour
 {
+    public static PackageUI Instance { get; private set; }
     [SerializeField] Image image;
     [SerializeField] float speed = 600;
     [SerializeField] Transform startPos;
@@ -12,12 +13,20 @@ public class PackageUI : MonoBehaviour
 
     InteractableUI interactableUI;
 
+    private void Awake()
+    {
+        if (Instance == null)
+            Instance = this;
+        else
+            Destroy(this);
+    }
+
     private void Start()
     {
         interactableUI = GetComponent<InteractableUI>();
         image.gameObject.SetActive(false);
-        Queue.OnNext += Queue_OnNextPackage;
-        Game.Instance.OnStarted += Game_OnStarted;
+        //Queue.OnNext += Queue_OnNextPackage;
+        //Game.Instance.OnStarted += Game_OnStarted;
     }
 
     private void Update()
@@ -49,17 +58,17 @@ public class PackageUI : MonoBehaviour
         Queue.Next(approved);
     }
 
-    private void Game_OnStarted()
-    {
-        SetPackage(Queue.GetCurrentCharacter(), Queue.GetCurrentPackage());
-    }
+    //private void Game_OnStarted()
+    //{
+    //    SetPackage(Queue.GetCurrentCharacter(), Queue.GetCurrentPackage());
+    //}
 
-    private void Queue_OnNextPackage(QueuePair oldPair, QueuePair newPair, bool approved)
-    {
-        SetPackage(newPair.character, newPair.package);
-    }
+    //private void Queue_OnNextPackage(QueuePair oldPair, QueuePair newPair, bool approved)
+    //{
+    //    SetPackage(newPair.character, newPair.package);
+    //}
 
-    private void SetPackage(Character character, Package package)
+    public void SetPackage(Character character, Package package)
     {
         if (interactableUI)
             interactableUI.enabled = true;
