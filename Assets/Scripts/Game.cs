@@ -80,12 +80,6 @@ public class Game : MonoBehaviour
         return character.FakeId;
     }
 
-    public bool IsCorrectPackage(Package package)
-    {
-        var character = Queue.GetCurrentCharacter();
-        return !character.FakeId && !package.IsFake;
-    }
-
     public void DeclineCustomer()
     {
         // If thief, we declined him succesfully!

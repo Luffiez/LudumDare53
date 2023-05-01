@@ -15,10 +15,22 @@ public class IDCardUI : MonoBehaviour
     bool isReturn;
     float speed;
 
+    bool initialized = false;
+
     private void Start()
     {
         Queue.OnNext += Queue_OnNext;
         Queue.OnReachedTarget += Queue_OnReachedTarget;
+        Queue.OnPairAdded += Queue_OnPairAdded;
+    }
+
+    private void Queue_OnPairAdded(QueuePair newPair)
+    {
+        if (initialized)
+            return;
+
+        initialized = true;
+        GenerateCard(Queue.GetCurrentCharacter());
     }
 
     private void OnDestroy()
@@ -27,12 +39,40 @@ public class IDCardUI : MonoBehaviour
         Queue.OnReachedTarget -= Queue_OnReachedTarget;
     }
 
-    public void PreviewCard()
+    private void GenerateCard(Character character)
     {
-        var character = Queue.GetCurrentCharacter();
+        // Copy character sprites to ID
+        IdPhoto._head = character.UI.sprites._head;
+        IdPhoto._hairFront = character.UI.sprites._hairFront;
+        IdPhoto._hairBack = character.UI.sprites._hairBack;
+        IdPhoto._ears = character.UI.sprites._ears;
+        IdPhoto._eyebrows = character.UI.sprites._eyebrows;
+        IdPhoto._eyes = character.UI.sprites._eyes;
+        IdPhoto._nose = character.UI.sprites._nose;
+        IdPhoto._mouth = character.UI.sprites._mouth;
+        IdPhoto._scars = character.UI.sprites._scars;
+        IdPhoto._facialHair = character.UI.sprites._facialHair;
+        IdPhoto._body = character.UI.sprites._body;
+        IdPhoto._clothes = character.UI.sprites._clothes;
+        IdPhoto._hairColor = character.UI.sprites._hairColor;
+        IdPhoto._bodyColor = character.UI.sprites._bodyColor;
 
-        // TODO: Generate false sprites if fakeId? Generate difference in hair/facial, clothes sprites?
-        IdPhoto.GenerateSprites(character);
+
+        // Change some hair or clothes randomly but leave important genetical features
+        int randSwaps = Random.Range(0, 3);
+        IdPhoto.SwapVisualStuff(character, randSwaps);
+
+        if (character.FakeId)
+        {
+            Debug.Log("Generating Fake ID!");
+            // change some genetical features
+            randSwaps = Random.Range(0, 2);
+            IdPhoto.SwapGeneticStuff(character, randSwaps);
+        }
+        else
+            Debug.Log("Generating Legit ID!");
+
+        IdPhoto.SetSprites();
 
         cardPreviewText.text = "<b>Name</b>\n";
         cardPreviewText.text += character.GivenName + " " + character.SurName;
@@ -48,7 +88,11 @@ public class IDCardUI : MonoBehaviour
 
         cardPreviewText.text += "\n\n<b>Expiration Date</b>\n";
         cardPreviewText.text += character.ExpireMonth + " / " + character.ExpireYear;
+    }
 
+    public void PreviewCard()
+    {
+        IdPhoto.SetSprites();
         cardPreviewText.transform.parent.gameObject.SetActive(true);
     }
 
@@ -105,6 +149,7 @@ public class IDCardUI : MonoBehaviour
 
     private void Queue_OnNext(QueuePair oldPair, QueuePair newPair, bool approved)
     {
+        GenerateCard(newPair.character);
         speed = returnSpeed;
         isReturn = true;
         target = oldPair.character.UI.transform;
