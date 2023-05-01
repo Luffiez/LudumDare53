@@ -35,8 +35,8 @@ public static class CharacterIdGenerator
             int randomEffect = UnityRandom.Range(0, 1000) % 2;
             switch(randomEffect)
             {
-                case 0: ScramblePersonId(birthDay);  break;
-                case 1: MakeExpiredDate(); break;
+                case 0:  birthDay=  ScramblePersonId(birthDay);  break;
+                case 1: expireDate= MakeExpiredDate(); break;
             }
         }
 
@@ -74,10 +74,10 @@ public static class CharacterIdGenerator
             {
                 case 0:
                     int randomdays = UnityRandom.Range(-10, 10);
-                    birthDay.AddDays(randomdays == 0 ? 1 : randomdays);
+                    birthDay =   birthDay.AddDays(randomdays == 0 ? 1 : randomdays);
                     if (birthDay.Day == startDay)
                     {
-                        birthDay.AddDays(-1);
+                        birthDay=birthDay.AddDays(-1);
                     }
                     break;
                 case 1:
@@ -85,15 +85,15 @@ public static class CharacterIdGenerator
                     birthDay.AddMonths(randomMonth == 0 ? 1 : randomMonth);
                     if (birthDay.Month == startMonth)
                     {
-                        birthDay.AddMonths(-1);
+                        birthDay=birthDay.AddMonths(-1);
                     }
                     break;
                 case 2:
                     int randomYear = UnityRandom.Range(-1, 1);
-                    birthDay.AddYears(randomYear == 0 ? 1 : randomYear);
+                    birthDay=birthDay.AddYears(randomYear == 0 ? 1 : randomYear);
                     if (startYear == birthDay.Year)
                     {
-                        birthDay.AddYears(-1);
+                        birthDay=birthDay.AddYears(-1);
                     }
                     break;
             }
