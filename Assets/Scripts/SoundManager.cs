@@ -38,7 +38,7 @@ public class SoundManager : MonoBehaviour
     {
         if (soundDicitionary.TryGetValue(soundName, out AudioClip audioClip))
         {
-                audioSource.PlayOneShot(audioClip, volume);
+            audioSource.PlayOneShot(audioClip, volume);
         }
         else
         {

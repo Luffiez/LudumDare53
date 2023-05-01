@@ -39,7 +39,6 @@ public static class Queue
         var oldPair = pair[0];
         if (pair.Count == 1)
         {
-            Debug.Log("Only One, remove it only.");
             pair.RemoveAt(0);
             OnNext?.Invoke(oldPair, null, approved);
 
@@ -53,7 +52,6 @@ public static class Queue
 
     public static void ReachedTarget(this Character character)
     {
-        Debug.Log("Reached Target!");
         OnReachedTarget?.Invoke(character);
     }
 }
