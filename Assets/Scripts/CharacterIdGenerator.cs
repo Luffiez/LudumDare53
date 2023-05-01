@@ -8,7 +8,7 @@ public static class CharacterIdGenerator
     public static List<string> MaleNames = new List<string> { "Liam", "Noah", "Oliver", "John", "David", "Thomas", "Christopher", "Matthew", "Kevin", "Jeffrey", "Larry", "Jerry", "Nathan", "Walter", "Terry", "Joe", "Billy", "Ralph" };
     public static List<string> FemaleNames = new List<string> { "Mary", "Elizabeth", "Susan", "Jessica", "Lisa", "Ashley", "Emily", "Michelle", "Amanda", "Stephanie", "Dorothy", "Sharon", "Cynthia", "Amy", "Anna", "Nicole", "Ruth" };
     public static List<string> Surnames = new List<string> { "The Hedgehog", "Ahmed", "Müller", "Fernández", "Smith", "Martínez", "Longbottom", "Davis", "Lopez", "Wilson", "Anderson", "Gomez", "Evans", "Gordon", "Howard", "Parker", "Abara", "Achebe", "Emem", "Nnadi", "Obama" };
-    public static void GenerateId(ref Character character, bool fake)
+    public static void GenerateId(Character character, bool fake)
     {
         DateTime birthDay = Game.Instance.CurrentDate.
             AddYears(-UnityRandom.Range(15, 84)).
