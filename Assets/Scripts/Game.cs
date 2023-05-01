@@ -69,7 +69,7 @@ public class Game : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            Queue.Next(true);
+            DeclineCustomer();
         }
     }
 #endif
@@ -83,7 +83,7 @@ public class Game : MonoBehaviour
     public void DeclineCustomer()
     {
         // If thief, we declined him succesfully!
-        Queue.Next(IsTheif());
+        Queue.TryNext(IsTheif());
     }
 
     IEnumerator DelayedSpawn()

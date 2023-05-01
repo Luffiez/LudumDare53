@@ -22,6 +22,7 @@ public static class Queue
     public static QueuePair? GetPairFor(Package package) => pair.Find(pair => pair.package == package);
     public static void ClearQueue() =>  pair.Clear();
     public static int Count => pair.Count;
+    static bool CanGoToNext = false;
     public static void AddPair(QueuePair _pair)
     {
         pair.Add(_pair);
@@ -48,10 +49,21 @@ public static class Queue
         var newPair = pair[1];
         OnNext?.Invoke(oldPair, newPair, approved);
         pair.RemoveAt(0);
+        CanGoToNext = false;
     }
+
+    public static void TryNext(bool isTheif)
+    {
+        if (CanGoToNext)
+        {
+            Next(isTheif);
+        }
+    }
+
 
     public static void ReachedTarget(this Character character)
     {
+        CanGoToNext = true;
         OnReachedTarget?.Invoke(character);
     }
 }

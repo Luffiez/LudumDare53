@@ -5,7 +5,7 @@ using UnityEngine;
 [RequireComponent(typeof(AudioSource))]
 public class SoundManager : MonoBehaviour
 {
-
+    [SerializeField]
     AudioSource audioSource;
     public static SoundManager Instance;
     public List<SoundPair> sounds;
@@ -35,13 +35,22 @@ public class SoundManager : MonoBehaviour
 
     public void PlayMusic(AudioClip clip, float volume)
     {
-        if (audioSource.clip == null || audioSource.clip.name != clip.name)
+        if (audioSource.clip == null )
         {
-            audioSource.clip = clip;
-            audioSource.volume = volume;
-            audioSource.loop = true;
-            audioSource.Play();
+            setAndPlayMusic(clip, volume);
         }
+        else if (audioSource.clip.name != clip.name)
+        {
+            setAndPlayMusic(clip, volume);
+        }
+    }
+
+    void setAndPlayMusic(AudioClip clip, float volume)
+    {
+        audioSource.clip = clip;
+        audioSource.volume = volume;
+        audioSource.loop = true;
+        audioSource.Play();
     }
 
     public void PlaySound(string soundName, float volume)
