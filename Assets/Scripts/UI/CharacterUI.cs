@@ -2,7 +2,6 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
-[RequireComponent(typeof(CharacterSprites))]
 public class CharacterUI : MonoBehaviour
 {
     [SerializeField] float moveSpeed = 2f;
@@ -21,14 +20,12 @@ public class CharacterUI : MonoBehaviour
     [SerializeField] float angerSpeed = 2f;
     [SerializeField] float angerStrength = 1f;
     [SerializeField] Image angerImage;
-
+    public CharacterSprites sprites;
 
 
     [HideInInspector] public Transform targetPoint;
     [HideInInspector] public bool destroyOnReachedTarget;
     [HideInInspector] public Character Character;
-    
-    CharacterSprites sprites;
 
     float wobbleCycle = 0;
     float squishCycle;
@@ -42,8 +39,8 @@ public class CharacterUI : MonoBehaviour
 
     private void Start()
     {
-        sprites = GetComponent<CharacterSprites>();
         sprites.GenerateSprites(Character);
+        sprites.SetSprites();
 
         squishCycle = Random.Range(0, 100);
         squishSpeed *= Random.Range(0.9f, 1.1f);
@@ -138,6 +135,7 @@ public class CharacterUI : MonoBehaviour
 
     Rect rect = new Rect(Vector2.zero, new Vector2(200, 50));
 
+#if UNITY_EDITOR
     void OnGUI()
     {
         if (!debugInfo)
@@ -146,4 +144,5 @@ public class CharacterUI : MonoBehaviour
         rect.position = new Vector2(transform.position.x, Screen.height - transform.position.y);
         GUI.Label(rect, $"{Character.PatiencePercentage.ToString("#.##")}%");
     }
+#endif
 }

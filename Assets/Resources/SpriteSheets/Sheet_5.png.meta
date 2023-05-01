@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 73cffa964b1f2784c88bc0bfa02d594e
+guid: 365e4eab48d3915498b64ca6744a4340
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -116,7 +116,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: clothes
+      name: hairBack
       rect:
         serializedVersion: 2
         x: 0
@@ -130,14 +130,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3f28f540bdbaae84483e66698c575d85
-      internalID: 845569264
+      spriteID: 7ca586e812a930d428ecca5ee3834320
+      internalID: 894875150
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: head
+      name: clothesFemale
       rect:
         serializedVersion: 2
         x: 32
@@ -151,29 +151,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 487b21e20cae9d141a59c58fa401f420
-      internalID: -1584193461
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: facialhair
-      rect:
-        serializedVersion: 2
-        x: 64
-        y: 0
-        width: 32
-        height: 32
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: a27591b9c2d80b249ad06000cff907b6
-      internalID: -2049397521
+      spriteID: 4c5f1e75d2b7f384d85110dc62fc1f30
+      internalID: -1116540594
       vertices: []
       indices: 
       edges: []
@@ -193,8 +172,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: aa1297970b454a24bb1ec9ba471f470f
-      internalID: 277954281
+      spriteID: 615d623a6e96d414c91dba3a59cdaf62
+      internalID: 788230561
       vertices: []
       indices: 
       edges: []
@@ -214,8 +193,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a3bafbd1aa28fec4fb8b0d58492df209
-      internalID: -210768881
+      spriteID: 69f4a082893e5974fb268818e94b21fa
+      internalID: 1432213539
       vertices: []
       indices: 
       edges: []
@@ -235,8 +214,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 94545d6b5a332124587327a7e082595f
-      internalID: 1639154015
+      spriteID: d6e733c716a74294d871cda6a796c4be
+      internalID: -860513285
       vertices: []
       indices: 
       edges: []
@@ -256,8 +235,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7d044cb2c84882b4592c4c4c9eeff234
-      internalID: -209540033
+      spriteID: 558f40e6316917347b40d95da4426721
+      internalID: 1427694147
       vertices: []
       indices: 
       edges: []
@@ -277,8 +256,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8938641c4d2a86e41b7867b321159cd8
-      internalID: 1768578299
+      spriteID: c36baf50c01b97341840ec3fe122273d
+      internalID: -1120562157
       vertices: []
       indices: 
       edges: []
@@ -298,14 +277,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ddfd74ecd6ec3f24a8df5caebfad8aaa
-      internalID: -479984627
+      spriteID: 9d2e68e66318ffe4db98274dd2627f30
+      internalID: -292557809
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: hairShortFront
+      name: hairLongFront
       rect:
         serializedVersion: 2
         x: 288
@@ -319,8 +298,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 0a684d791cc4cd14181ee6305efe66f0
-      internalID: 1524839833
+      spriteID: 8f9f68c498e57ca4c83d5c9ef622bf7c
+      internalID: 108946546
       vertices: []
       indices: 
       edges: []
@@ -336,16 +315,16 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      nose: 1639154015
-      clothes: 845569264
-      ears: -209540033
-      scar: 277954281
-      eyes: 1768578299
-      hairShortFront: 1524839833
-      head: -1584193461
-      mouth: -210768881
-      facialhair: -2049397521
-      eyebrows: -479984627
+      nose: -860513285
+      ears: 1427694147
+      scar: 788230561
+      hairBack: 894875150
+      eyes: -1120562157
+      hairLongFront: 108946546
+      clothesFemale: -1116540594
+      mouth: 1432213539
+      Sheet_5_2: -2085219994
+      eyebrows: -292557809
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

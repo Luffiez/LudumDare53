@@ -1,8 +1,8 @@
 ﻿public class Character
 {
-    public bool FakeIdentification { get; set; }
-    public string PersonIdString { get 
-    {
+    public bool FakeId { get; set; }
+    public string PersonIdString { get
+        {
             string birthMonthString = IdBirthMonth < 10 ? "0" + IdBirthMonth : IdBirthMonth.ToString();
             string birthDayString = IdBirthDay < 10 ? "0" + IdBirthDay : IdBirthDay.ToString();
             return $"{IdBirthYear}{birthMonthString}{birthDayString}-{lastSixNumbers}"; }
@@ -23,7 +23,6 @@
     public float StartPatience { get; set; }
     public float Patience { get; set; }
     public float PatiencePercentage => Patience / StartPatience;
-
     public CharacterUI UI { get; set; }
 }
 

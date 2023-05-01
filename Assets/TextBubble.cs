@@ -34,7 +34,7 @@ public class TextBubble : MonoBehaviour
         if (bubble.activeSelf)
         {
             StopAllCoroutines();
-            bubble.SetActive(false);
+            StartCoroutine(Hide(bubbleDisplayDuration/2));
         }
     }
 

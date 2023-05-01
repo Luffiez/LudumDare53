@@ -116,7 +116,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: body
+      name: clothesMale
       rect:
         serializedVersion: 2
         x: 0
@@ -284,7 +284,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: hair
+      name: hairShortFront
       rect:
         serializedVersion: 2
         x: 288
@@ -318,11 +318,11 @@ TextureImporter:
       nose: 1218143707
       ears: 1498900762
       eyes: 1903467309
+      hairShortFront: 311669184
       head: -690442560
-      hair: 311669184
+      clothesMale: -867795152
       mouth: 1689877491
       facialhair: -576650440
-      body: -867795152
       eyebrows: 1587837272
   spritePackingTag: 
   pSDRemoveMatte: 0

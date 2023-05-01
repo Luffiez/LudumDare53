@@ -64,12 +64,26 @@ public class Game : MonoBehaviour
         ReduceHealth();
     }
 
+#if UNITY_EDITOR
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
             Queue.Next(true);
         }
+    }
+#endif
+
+    public bool IsTheif()
+    {
+        var character = Queue.GetCurrentCharacter();
+        return character.FakeId;
+    }
+
+    public void DeclineCustomer()
+    {
+        // If thief, we declined him succesfully!
+        Queue.Next(IsTheif());
     }
 
     IEnumerator DelayedSpawn()
@@ -93,7 +107,7 @@ public class Game : MonoBehaviour
         // Package
         var package = new Package()
         {
-            fake = fake,
+            IsFake = fake,
             PackageId = PackageIdGenerator.GeneratePackageId(),
             PersonId = character.PersonIdString,
             sprite = spriteManager.GetRandomPackageSprite()
@@ -125,6 +139,5 @@ public class Game : MonoBehaviour
             Queue.ClearQueue();
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
-
     }
 }
