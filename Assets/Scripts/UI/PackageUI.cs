@@ -76,7 +76,7 @@ public class PackageUI : MonoBehaviour
             interactableUI.enabled = false;
         target = currentCharacter.UI.transform;
     }
-
+    
     void GiveCompleted()
     {
         target = null;

@@ -35,7 +35,7 @@ public class CharacterUI : MonoBehaviour
 
     bool reachedTarget = false;
     bool leavingQueue = false;
-    private bool IsAtTarget() => targetPoint != null && Vector2.Distance(transform.position, targetPoint.position) < 1f;
+    public bool IsAtTarget() => targetPoint != null && Vector2.Distance(transform.position, targetPoint.position) < 1f;
 
     private void Start()
     {

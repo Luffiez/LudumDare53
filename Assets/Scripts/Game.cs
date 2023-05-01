@@ -107,6 +107,7 @@ public class Game : MonoBehaviour
 
         character.StartPatience = UnityEngine.Random.Range(minCharacterPatience, maxCharacterPatience);
         character.Patience = character.StartPatience;
+
         // Package
         var package = new Package()
         {
