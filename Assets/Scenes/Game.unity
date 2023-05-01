@@ -301,6 +301,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 812240492, guid: bc83acc35b442584e9966787d87afd1f, type: 3}
+      propertyPath: m_Horizontal
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 812240492, guid: bc83acc35b442584e9966787d87afd1f, type: 3}
+      propertyPath: m_ScrollSensitivity
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 812240492, guid: bc83acc35b442584e9966787d87afd1f, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.size
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1610304275, guid: bc83acc35b442584e9966787d87afd1f, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -380,6 +392,10 @@ PrefabInstance:
       propertyPath: packageView
       value: 
       objectReference: {fileID: 3300769134340605931}
+    - target: {fileID: 5511846154131635464, guid: 3f9a4d4c657210d45aa7a0e3f15390f3, type: 3}
+      propertyPath: PackageCount
+      value: 15
+      objectReference: {fileID: 0}
     - target: {fileID: 5511846154131635464, guid: 3f9a4d4c657210d45aa7a0e3f15390f3, type: 3}
       propertyPath: packageUIContent
       value: 
