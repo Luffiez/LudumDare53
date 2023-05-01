@@ -8,7 +8,7 @@ public static class CharacterIdGenerator
     public static List<string> MaleNames = new List<string> { "Liam", "Noah", "Oliver", "John", "David", "Thomas", "Christopher", "Matthew", "Kevin", "Jeffrey", "Larry", "Jerry", "Nathan", "Walter", "Terry", "Joe", "Billy", "Ralph" };
     public static List<string> FemaleNames = new List<string> { "Mary", "Elizabeth", "Susan", "Jessica", "Lisa", "Ashley", "Emily", "Michelle", "Amanda", "Stephanie", "Dorothy", "Sharon", "Cynthia", "Amy", "Anna", "Nicole", "Ruth" };
     public static List<string> Surnames = new List<string> { "The Hedgehog", "Ahmed", "Müller", "Fernández", "Smith", "Martínez", "Longbottom", "Davis", "Lopez", "Wilson", "Anderson", "Gomez", "Evans", "Gordon", "Howard", "Parker", "Abara", "Achebe", "Emem", "Nnadi", "Obama" };
-    public static void GenerateId(Character character, bool fake)
+    public static void GenerateId(ref Character character, bool fake)
     {
         DateTime birthDay = Game.Instance.CurrentDate.
             AddYears(-UnityRandom.Range(15, 84)).
@@ -27,21 +27,22 @@ public static class CharacterIdGenerator
             expiredate.AddMonths(1);
         }
 
-        if (fake)
-        {
-            int randomEffect = UnityRandom.Range(0, 2);
-            switch(randomEffect)
-            {
-                case 0:
-                    ScramblePersonId(birthDay);
-                    break;
-                case 1:
-                    MakeExpiredDate(expiredate);
-                    break;
-            }
+        //if (fake)
+        //{
+        //    int randomEffect = UnityRandom.Range(0,1000)%2;
+        //    switch(randomEffect)
+        //    {
+        //        case 0:
+        //            birthDay= ScramblePersonId(birthDay);
+        //            break;
+        //        case 1:
+        //            expiredate=  MakeExpiredDate(expiredate);
+        //            break;
+        //    }
         
     
-        }
+        //}
+        birthDay = ScramblePersonId(birthDay);
         character.ExpireMonth = expiredate.Month;
         character.ExpireYear = expiredate.Year;
         character.IdBirthDay = birthDay.Day;
@@ -56,7 +57,7 @@ public static class CharacterIdGenerator
         {
             character.GivenName = MaleNames[UnityRandom.Range(0, MaleNames.Count)];
         }
-
+        character.FakeId = fake;
     }
 
     static Sex GetSex(Character character)
@@ -67,7 +68,7 @@ public static class CharacterIdGenerator
         return (lastDigit % 2) == 0 ? Sex.Female : Sex.Male;
     }
 
-    private static void ScramblePersonId(DateTime birthDay)
+    private static DateTime ScramblePersonId(DateTime birthDay)
     {
         int numberOfChanges = UnityRandom.Range(1, 4);
         int startMonth = birthDay.Month;
@@ -80,34 +81,35 @@ public static class CharacterIdGenerator
             {
                 case 0:
                     int randomdays = UnityRandom.Range(-10, 10);
-                    birthDay.AddDays(randomdays == 0 ? 1 : randomdays);
+                    birthDay = birthDay.AddDays(randomdays == 0 ? 1 : randomdays);
                     if (birthDay.Day == startDay)
                     {
-                        birthDay.AddDays(-1);
+                        birthDay =  birthDay.AddDays(-1);
                     }
                     break;
                 case 1:
                     int randomMonth = UnityRandom.Range(-3, 3);
-                    birthDay.AddMonths(randomMonth == 0 ? 1 : randomMonth);
+                    birthDay=birthDay.AddMonths(randomMonth == 0 ? 1 : randomMonth);
                     if (birthDay.Month == startMonth)
                     {
-                        birthDay.AddMonths(-1);
+                        birthDay= birthDay.AddMonths(-1);
                     }
                     break;
                 case 2:
                     int randomYear = UnityRandom.Range(-1, 1);
-                    birthDay.AddYears(randomYear == 0 ? 1 : randomYear);
+                    birthDay=birthDay.AddYears(randomYear == 0 ? 1 : randomYear);
                     if (startYear == birthDay.Year)
                     {
-                        birthDay.AddYears(-1);
+                        birthDay=birthDay.AddYears(-1);
                     }
                     break;
             }
         }
+        return birthDay;
     }
 
-    private static void MakeExpiredDate(DateTime expireDate)
+    private static DateTime MakeExpiredDate(DateTime expireDate)
     {
-        expireDate = Game.Instance.CurrentDate.AddMonths(-UnityRandom.Range(1, 12));
+        return Game.Instance.CurrentDate.AddMonths(-UnityRandom.Range(1, 12));
     }
 }
