@@ -11,7 +11,6 @@ public class SoundManager : MonoBehaviour
     public List<SoundPair> sounds;
     Dictionary<string, AudioClip> soundDicitionary = new Dictionary<string, AudioClip>();
 
-
     // Start is called before the first frame update
      private void Awake()
     {
@@ -31,8 +30,19 @@ public class SoundManager : MonoBehaviour
         {
             soundDicitionary.Add(pair.SoundName, pair.clip);
         }
+        DontDestroyOnLoad(this.gameObject);
     }
 
+    public void PlayMusic(AudioClip clip, float volume)
+    {
+        if (audioSource.clip == null || audioSource.clip.name != clip.name)
+        {
+            audioSource.clip = clip;
+            audioSource.volume = volume;
+            audioSource.loop = true;
+            audioSource.Play();
+        }
+    }
 
     public void PlaySound(string soundName, float volume)
     {
