@@ -19,6 +19,7 @@ public class Game : MonoBehaviour
 
     public delegate void GameStarted();
     public event GameStarted OnStarted;
+    public event GameStarted OnGameOver;
 
     public delegate void HealthUpdated(int current);
     public event HealthUpdated OnHealthUpdated;
@@ -137,7 +138,8 @@ public class Game : MonoBehaviour
         if (health <= 0)
         {
             Queue.ClearQueue();
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            Time.timeScale = 0;
+            OnGameOver?.Invoke();
         }
     }
 }

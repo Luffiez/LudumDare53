@@ -46,9 +46,9 @@ public class TextBubble : MonoBehaviour
 
     public void Display(string text)
     {
+        StopAllCoroutines();
         bubbleText.text = text;
         bubble.SetActive(true);
-        StopAllCoroutines();
         StartCoroutine(Scale(Vector3.zero, Vector3.one, bubbleScaleDuration));
         StartCoroutine(Hide(bubbleDisplayDuration));
     }

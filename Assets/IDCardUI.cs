@@ -64,13 +64,11 @@ public class IDCardUI : MonoBehaviour
 
         if (character.FakeId)
         {
-            Debug.Log("Generating Fake ID!");
             // change some genetical features
             randSwaps = Random.Range(0, 2);
             IdPhoto.SwapGeneticStuff(character, randSwaps);
         }
         else
-            Debug.Log("Generating Legit ID!");
 
         IdPhoto.SetSprites();
 

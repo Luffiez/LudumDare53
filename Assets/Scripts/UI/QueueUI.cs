@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -76,5 +75,16 @@ public class QueueUI : MonoBehaviour
         characterUIs.Add(characterUI);
 
         newPair.character.UI = characterUI;
+    }
+
+    public void RejectCustomer()
+    {
+        bool isFake = Queue.GetCurrentCharacter().FakeId;
+        if (isFake)
+            TextBubble.Instance.Display("How did you know!?");
+        else
+            TextBubble.Instance.Display("I'll let your manager know about this!!!");
+
+        Queue.Next(isFake);
     }
 }

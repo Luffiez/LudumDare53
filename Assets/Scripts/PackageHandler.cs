@@ -70,7 +70,7 @@ public class PackageHandler : MonoBehaviour
 
     private void GenerateFakePackageIds()
     {
-
+        return;
         PackageInfo.Clear();
         for (int i = 0; i < PackageCount; i++)
         {
