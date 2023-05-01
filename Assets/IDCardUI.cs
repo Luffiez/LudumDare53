@@ -147,6 +147,7 @@ public class IDCardUI : MonoBehaviour
 
     private void Queue_OnNext(QueuePair oldPair, QueuePair newPair, bool approved)
     {
+        StopPreviewingCard();
         GenerateCard(newPair.character);
         speed = returnSpeed;
         isReturn = true;

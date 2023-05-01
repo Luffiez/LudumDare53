@@ -14,6 +14,8 @@ public class Game : MonoBehaviour
     [SerializeField] float fakePercentage = 0.3f;
     [SerializeField] float minCharacterPatience = 60f;
     [SerializeField] float maxCharacterPatience = 120f;
+    [SerializeField] float maxCharacterScore = 100;
+
 
     [HideInInspector] public int score = 0;
 
@@ -122,8 +124,11 @@ public class Game : MonoBehaviour
 
     private void Queue_OnNext(QueuePair oldPair, QueuePair newPair, bool approved)
     {
+        // Characters with lower patience give a higher score
+        // complete order faster to achieve even higher score
+
         if (approved)
-            score++;
+            score += Mathf.RoundToInt((maxCharacterScore - oldPair.character.StartPatience / 2) * oldPair.character.PatiencePercentage);
         else
             ReduceHealth();
 
