@@ -27,6 +27,12 @@ public class PackageHandler : MonoBehaviour
 
     }
 
+    private void OnDestroy()
+    {
+        Game.Instance.OnStarted -= OnGameStarted;
+        Queue.OnNext -= Queue_OnNext;
+        Queue.OnPairRemoved -= Queue_OnPairRemoved;
+    }
     private void Queue_OnPairRemoved(QueuePair newPair)
     {
         UpdatePackageList(Queue.GetCurrentPair());

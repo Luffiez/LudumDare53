@@ -21,6 +21,12 @@ public class IDCardUI : MonoBehaviour
         Queue.OnReachedTarget += Queue_OnReachedTarget;
     }
 
+    private void OnDestroy()
+    {
+        Queue.OnNext -= Queue_OnNext;
+        Queue.OnReachedTarget -= Queue_OnReachedTarget;
+    }
+
     public void PreviewCard()
     {
         var character = Queue.GetCurrentCharacter();

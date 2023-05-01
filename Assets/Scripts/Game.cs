@@ -7,7 +7,7 @@ public class Game : MonoBehaviour
 {
     public static Game Instance;
 
-    [SerializeField] int lives = 5;
+    [SerializeField] int health = 5;
     [SerializeField] int queueStartSize = 3;
     [SerializeField] int queueMaxSize = 3;
     [SerializeField] float spawnDelay = 0.3f;
@@ -18,7 +18,10 @@ public class Game : MonoBehaviour
     [HideInInspector] public int score = 0;
 
     public delegate void GameStarted();
-    public GameStarted OnStarted;
+    public event GameStarted OnStarted;
+
+    public delegate void HealthUpdated(int current);
+    public event HealthUpdated OnHealthUpdated;
 
     SpriteManager spriteManager;
     public DateTime CurrentDate = new DateTime(1, 1, 1);
@@ -26,6 +29,7 @@ public class Game : MonoBehaviour
     private void OnDestroy()
     {
         Queue.OnNext -= Queue_OnNext;
+        Queue.OnPairRemoved -= Queue_OnPairRemoved;
     }
 
     private void Awake()
@@ -108,14 +112,19 @@ public class Game : MonoBehaviour
         else
             ReduceHealth();
 
-        Queue.AddPair(GeneratePair());
+        if(Queue.Count < queueMaxSize)
+            Queue.AddPair(GeneratePair());
     }
 
     private void ReduceHealth()
     {
-        lives--;
-        if (lives <= 0)
+        health--;
+        OnHealthUpdated?.Invoke(health);
+        if (health <= 0)
+        {
+            Queue.ClearQueue();
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        }
 
     }
 }

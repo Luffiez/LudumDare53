@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -23,12 +24,17 @@ public class QueueUI : MonoBehaviour
         Queue.OnPairRemoved += Queue_OnPairRemoved;
     }
 
+    private void OnDestroy()
+    {
+        Queue.OnPairAdded -= Queue_PairAdded;
+        Queue.OnNext -= Queue_OnNext;
+        Queue.OnPairRemoved -= Queue_OnPairRemoved;
+    }
+
     private void Queue_OnPairRemoved(QueuePair pair)
     {
         if (pair?.character?.UI == null)
-        {
-            throw new System.NullReferenceException("PAIR IS NULL!?");
-        }
+            return;
         
         pair.character.UI.targetPoint = exitPoint;
         pair.character.UI.destroyOnReachedTarget = true;

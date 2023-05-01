@@ -397,6 +397,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5511846155030610917, guid: 3f9a4d4c657210d45aa7a0e3f15390f3, type: 3}
+      propertyPath: lives
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 5511846155030610917, guid: 3f9a4d4c657210d45aa7a0e3f15390f3, type: 3}
       propertyPath: queueMaxSize
       value: 4
       objectReference: {fileID: 0}

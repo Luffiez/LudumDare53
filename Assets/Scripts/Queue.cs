@@ -13,11 +13,15 @@ public static class Queue
     public delegate void CharacterReachedTarget(Character character);
     public static event CharacterReachedTarget OnReachedTarget;
 
-    public static List<QueuePair> pair = new List<QueuePair>();
+    static List<QueuePair> pair = new List<QueuePair>();
     public static Character? GetCurrentCharacter() => pair[0]?.character;
     public static Package? GetCurrentPackage() => pair[0]?.package;
     public static QueuePair? GetCurrentPair() => pair[0];
 
+    public static QueuePair? GetPairFor(Character character) => pair.Find(pair => pair.character == character);
+    public static QueuePair? GetPairFor(Package package) => pair.Find(pair => pair.package == package);
+    public static void ClearQueue() =>  pair.Clear();
+    public static int Count => pair.Count;
     public static void AddPair(QueuePair _pair)
     {
         pair.Add(_pair);
@@ -49,6 +53,7 @@ public static class Queue
 
     public static void ReachedTarget(this Character character)
     {
+        Debug.Log("Reached Target!");
         OnReachedTarget?.Invoke(character);
     }
 }

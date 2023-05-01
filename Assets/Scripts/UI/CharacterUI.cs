@@ -90,7 +90,7 @@ public class CharacterUI : MonoBehaviour
             return;
         }
 
-        var pair = Queue.pair.Find(pair => pair.character == Character);
+        var pair = Queue.GetPairFor(Character);
         Queue.RemovePair(pair);
     }
 
@@ -107,7 +107,10 @@ public class CharacterUI : MonoBehaviour
     private void Idle()
     {
         if (destroyOnReachedTarget)
+        {
             Destroy(gameObject);
+            return;
+        }
 
         if (!reachedTarget)
         {
@@ -124,6 +127,8 @@ public class CharacterUI : MonoBehaviour
     public void DisplayPackageIdAgain()
     {
         if (Queue.GetCurrentCharacter() != Character)
+            return;
+        if (!IsAtTarget())
             return;
 
         string[] packageLines = new string[5] {"", "It's ", "My package id is still ", "...", "Do I really need to say it again..? It's " };

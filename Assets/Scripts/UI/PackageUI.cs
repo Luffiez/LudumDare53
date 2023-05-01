@@ -30,6 +30,12 @@ public class PackageUI : MonoBehaviour
         Queue.OnPairRemoved += Queue_OnPairRemoved;
     }
 
+    private void OnDestroy()
+    {
+        Queue.OnNext -= Queue_OnNext;
+        Queue.OnPairRemoved -= Queue_OnPairRemoved;
+    }
+
     private void Queue_OnPairRemoved(QueuePair newPair)
     {
         image.gameObject.SetActive(false);

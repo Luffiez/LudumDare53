@@ -23,6 +23,12 @@ public class TextBubble : MonoBehaviour
         Queue.OnNext += Queue_OnNext;
     }
 
+    private void OnDestroy()
+    {
+        Queue.OnReachedTarget -= Queue_OnReachedTarget;
+        Queue.OnNext -= Queue_OnNext;
+    }
+
     private void Queue_OnNext(QueuePair oldPair, QueuePair newPair, bool approved)
     {
         if (bubble.activeSelf)
