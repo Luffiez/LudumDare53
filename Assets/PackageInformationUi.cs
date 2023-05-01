@@ -31,9 +31,18 @@ public class PackageInformationUi : MonoBehaviour
         Button.SetActive(false);
     }
 
+    private void PlayRandomPackageSound()
+    {
+        int randomSound = Random.Range(0, 3) + 1;
+        SoundManager.Instance.PlaySound($"Package{randomSound}", 1);
+    }
+
     public void FetchPackage()
     {
         PackageUI.Instance.SetPackage(Queue.GetCurrentCharacter(), package);
         PackageHandler.Instance.DisablePackageView();
+        PlayRandomPackageSound();
+
+
     }
 }
