@@ -27,22 +27,21 @@ public static class CharacterIdGenerator
             expiredate.AddMonths(1);
         }
 
-        //if (fake)
-        //{
-        //    int randomEffect = UnityRandom.Range(0,1000)%2;
-        //    switch(randomEffect)
-        //    {
-        //        case 0:
-        //            birthDay= ScramblePersonId(birthDay);
-        //            break;
-        //        case 1:
-        //            expiredate=  MakeExpiredDate(expiredate);
-        //            break;
-        //    }
-        
-    
-        //}
-        birthDay = ScramblePersonId(birthDay);
+        if (fake)
+        {
+            int randomEffect = UnityRandom.Range(0, 1000) % 2;
+            switch (randomEffect)
+            {
+                case 0:
+                    birthDay = ScramblePersonId(birthDay);
+                    break;
+                case 1:
+                    expiredate = MakeExpiredDate(expiredate);
+                    break;
+            }
+
+
+        }
         character.ExpireMonth = expiredate.Month;
         character.ExpireYear = expiredate.Year;
         character.IdBirthDay = birthDay.Day;
