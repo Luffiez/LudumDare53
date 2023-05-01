@@ -91,12 +91,21 @@ public class PackageHandler : MonoBehaviour
 
     public void EnablePackageView()
     {
+        PlayRandomComputerSound();
         packageView.SetActive(true);
     }
 
     public void DisablePackageView()
     {
+        PlayRandomComputerSound();
         packageView.SetActive(false);
+    }
+
+
+    public void PlayRandomComputerSound()
+    {
+        int soundtype = Random.Range(0, 5) +1;
+        SoundManager.Instance.PlaySound($"Computer{soundtype}", 1);
     }
 
     public void ClearPackageUi()
