@@ -82,7 +82,8 @@ public class QueueUI : MonoBehaviour
         if (!Queue.GetCurrentCharacter().UI.IsAtTarget())
             return;
 
-        bool isFake = Queue.GetCurrentCharacter().FakeId;
+        bool isFake = Queue.GetCurrentCharacter().FakeId || Queue.GetCurrentPackage().IsFake;
+
         if (isFake)
             TextBubble.Instance.Display("How did you know!?");
         else
