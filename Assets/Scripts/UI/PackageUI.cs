@@ -65,14 +65,14 @@ public class PackageUI : MonoBehaviour
         if (!image.gameObject.activeSelf)
             return;
 
-        if (currentPackage.PackageId != currentCharacter.PackageId)
+        if (currentPackage.PackageId != currentCharacter.PackageId && !currentCharacter.FakeId)
         {
             TextBubble.Instance.Display("That's not my package!");
             currentCharacter.Patience -= currentCharacter.StartPatience * 0.3f;
             return;
         }
-
-        if(interactableUI)
+        
+        if (interactableUI)
             interactableUI.enabled = false;
         target = currentCharacter.UI.transform;
     }
@@ -82,8 +82,11 @@ public class PackageUI : MonoBehaviour
         target = null;
         image.gameObject.SetActive(false);
         bool approved = !currentCharacter.FakeId && !currentPackage.IsFake;
-        if (currentCharacter.FakeId)
-            TextBubble.Instance.Display("GOT YOU, hehehe!");
+
+        if (currentCharacter.FakeId || currentPackage.IsFake)
+            TextBubble.Instance.Display("GOT YOU, SUCKER! hehehe");
+        else
+            TextBubble.Instance.Display("Thank you!");
 
         Queue.Next(approved);
     }
