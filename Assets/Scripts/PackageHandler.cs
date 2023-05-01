@@ -78,7 +78,7 @@ public class PackageHandler : MonoBehaviour
 
             Package fakePackage = new Package()
             {
-                fake = true,
+                IsFake = true,
                 PackageId = PackageIdGenerator.GeneratePackageId(),
                 PersonId = tempCharacter?.PersonIdString,
                 sprite = SpriteManager.instance.GetRandomPackageSprite(),
@@ -91,7 +91,7 @@ public class PackageHandler : MonoBehaviour
 
     private void AddPackageData(QueuePair pair)
     {
-        if (pair.package.fake)
+        if (pair.package.IsFake)
         {
             pair.package.Status =  PackageStatus.Delivered;
         }

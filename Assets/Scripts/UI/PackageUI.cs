@@ -81,7 +81,7 @@ public class PackageUI : MonoBehaviour
     {
         target = null;
         image.gameObject.SetActive(false);
-        bool approved = !currentCharacter.FakeIdentification && currentCharacter.PackageId == currentPackage.PackageId;
+        bool approved = Game.Instance.IsCorrectPackage(currentPackage);
         Queue.Next(approved);
     }
 

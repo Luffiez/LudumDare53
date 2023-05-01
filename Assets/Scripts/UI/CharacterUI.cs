@@ -138,6 +138,7 @@ public class CharacterUI : MonoBehaviour
 
     Rect rect = new Rect(Vector2.zero, new Vector2(200, 50));
 
+#if UNITY_EDITOR
     void OnGUI()
     {
         if (!debugInfo)
@@ -146,4 +147,5 @@ public class CharacterUI : MonoBehaviour
         rect.position = new Vector2(transform.position.x, Screen.height - transform.position.y);
         GUI.Label(rect, $"{Character.PatiencePercentage.ToString("#.##")}%");
     }
+#endif
 }
