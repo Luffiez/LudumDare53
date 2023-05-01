@@ -79,7 +79,7 @@ public class QueueUI : MonoBehaviour
 
     public void RejectCustomer()
     {
-        bool isFake = Queue.GetCurrentCharacter().FakeId;
+        bool isFake = Queue.GetCurrentCharacter().FakeId ||Queue.GetCurrentPackage().IsFake;
         if (isFake)
             TextBubble.Instance.Display("How did you know!?");
         else

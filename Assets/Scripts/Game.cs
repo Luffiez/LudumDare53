@@ -80,7 +80,8 @@ public class Game : MonoBehaviour
     public bool IsTheif()
     {
         var character = Queue.GetCurrentCharacter();
-        return character.FakeId;
+        var package = Queue.GetCurrentPackage();
+        return character.FakeId ||package.IsFake;
     }
 
     public void DeclineCustomer()
@@ -103,6 +104,7 @@ public class Game : MonoBehaviour
         // Character
         var character = new Character();
         bool fake = UnityEngine.Random.Range(0f, 1f) < fakePercentage;
+        bool packageFake = UnityEngine.Random.Range(0f, 1f) < fakePercentage;
         CharacterIdGenerator.GenerateId(character, fake);
 
         character.StartPatience = UnityEngine.Random.Range(minCharacterPatience, maxCharacterPatience);
@@ -110,7 +112,7 @@ public class Game : MonoBehaviour
         // Package
         var package = new Package()
         {
-            IsFake = fake,
+            IsFake = packageFake,
             PackageId = PackageIdGenerator.GeneratePackageId(),
             PersonId = character.PersonIdString,
             sprite = spriteManager.GetRandomPackageSprite()
