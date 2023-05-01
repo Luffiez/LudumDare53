@@ -31,11 +31,11 @@ public class TextBubble : MonoBehaviour
 
     private void Queue_OnNext(QueuePair oldPair, QueuePair newPair, bool approved)
     {
-        if (bubble.activeSelf)
-        {
-            StopAllCoroutines();
-            StartCoroutine(Hide(bubbleDisplayDuration/2));
-        }
+        //if (bubble.activeSelf)
+        //{
+        //    StopAllCoroutines();
+        //    StartCoroutine(Hide(bubbleDisplayDuration/2));
+        //}
     }
 
     private void Queue_OnReachedTarget(Character character)
@@ -70,7 +70,7 @@ public class TextBubble : MonoBehaviour
     IEnumerator Hide(float duration)
     {
         yield return new WaitForSeconds(duration);
-        Scale(Vector3.one, Vector3.zero, bubbleScaleDuration);
+        StartCoroutine(Scale(Vector3.one, Vector3.zero, bubbleScaleDuration));
         yield return new WaitForSeconds(bubbleScaleDuration);
         bubble.SetActive(false);
     }
